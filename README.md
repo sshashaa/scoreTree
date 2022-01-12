@@ -1,1 +1,4 @@
 # CART-with-scoring
+Trees built with data have been widely used for nonparametric prediction. Probabilistic prediction is preferred over point predictions when uncertainty plays a large role in analysis and decision making. We study the case when a tree is modified to produce nonparametric predictive distributions.  We find the standard method for building trees may not result in good predictive distributions. We suggest changing the splitting criteria for trees to one based on proper scoring rules.  Analysis of both simulated data and several real datasets demonstrate that using these new splitting criteria result in trees with advantageous behavior considering the entire predictive distribution.
+
+This repository contains the code, data, and numerical experiments and reports related to this study.
