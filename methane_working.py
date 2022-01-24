@@ -7,7 +7,6 @@ Created on Sun Jan 23 18:16:29 2022
 """
 import sys
 sys.path.append('/Users/sarashashaani/Documents/GitHub/simopt-admin/CART-with-scoring/')
-datafile = "data/test_"+data_title+".txt"
 
 import os
 cwd = os.getcwd()
@@ -495,8 +494,7 @@ data_title = "methane"
 methods = ["crps", "dss", "is1", "sse"]
 params = str(max_depth)+str(min_node_size)+str(num_quantiles)+str(total_reps)+str(alpha)
 
-
-
+datafile = "data/test_"+data_title+".txt"
 log_file = open("log_"+data_title+"_"+params+".txt", 'a+')
 total_time = time.time()        
 with open (datafile, 'r') as f: # use with to open your files, it close them automatically
