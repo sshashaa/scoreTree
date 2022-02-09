@@ -9,7 +9,7 @@ import numpy as np
 from collections import Counter
 #  SSE of a a new splitted point; if nonparent it is two nodes (left, right)
 #   if parent, only one node
-def sse_for_new_split(groups, notparent):
+def sse_for_new_split(groups, notparent, args):
     sse = 0.0
     if notparent:
         for group in groups:
@@ -20,7 +20,7 @@ def sse_for_new_split(groups, notparent):
         sse = sum([pow(row[-1]-mean_target,2) for row in groups])  
     return sse
 
-def crps_for_new_split(groups, notparent):
+def crps_for_new_split(groups, notparent, args):
     total_crps = 0          
     if notparent:
         for group in groups:
@@ -49,7 +49,7 @@ def crps_for_new_split(groups, notparent):
         total_crps += crps_2/(2*len(targets))
     return total_crps  
 
-def dss_for_new_split(groups, notparent):
+def dss_for_new_split(groups, notparent, args):
     dss = 0.0
     if notparent:
         for group in groups:
@@ -64,8 +64,8 @@ def dss_for_new_split(groups, notparent):
         dss += (np.log(vhat)*len(targets)+ sum([pow(x-mhat,2) for x in targets])/vhat)
     return dss
 
-def is1_for_new_split(groups, notparent):
-    global alpha
+def is1_for_new_split(groups, notparent, args):
+    alpha = args['alpha']
     is1 = 0.0
     if notparent:
         for group in groups:

@@ -7,9 +7,10 @@ Created on Thu Feb  3 16:46:35 2022
 """
 import numpy as np
 from newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split
+from accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1
 
 class scoreCART():
-    def __init__(self, method, train_set, tol, max_depth, min_node_size, num_quantiles, args):
+    def __init__(self, method, train_set, tol, max_depth, min_node_size, num_quantiles, alpha, args):
 
         self.train_set = train_set
         self.x_dim = len(train_set[0]) - 1
@@ -22,6 +23,7 @@ class scoreCART():
         self.is_cat = args['is_cat']
         self.cov_uniqvals = args['cov_uniqvals']
         self.tol = tol
+        self.alpha = alpha
                 
     # Find the empirical cdf of a sample, Outcome: quantiles and cumulative probabilities
     def ecdf(self, sample):
@@ -51,11 +53,13 @@ class scoreCART():
 
     def get_split(self, nodetr):
         #train_set = self.train_set 
+        args = {}
+        args['alpha'] = self.alpha
         x_dim = self.x_dim 
         num_quantiles = self.num_quantiles
         min_node_size = self.min_node_size 
         b_index, b_value, b_groups = 999, 999, None
-        b_score = self.new_split_funcs(nodetr, 0)
+        b_score = self.new_split_funcs(nodetr, 0, args)
         first_val = 0  
         split_occurs = 0
         
@@ -75,7 +79,7 @@ class scoreCART():
             for val in tocheck_val:
                 groups = self.test_split(index, val, nodetr, equal)
                 if len(groups[0]) >= min_node_size and len(groups[1]) >= min_node_size:
-                    measure =  self.new_split_funcs(groups, 1)
+                    measure =  self.new_split_funcs(groups, 1, args)
                     if not first_val:
                         first_val = 1
                         if b_score < measure:
@@ -153,5 +157,60 @@ class scoreCART():
         self.split(root, 1)
         print("tree_method " + self.method + "\n###########################")
         self.print_tree(root, depth=0)
-        return root
+        self.fittedtree = root
+        
+    # All the functions below for evalution
+    # List of data points in all leaves 
+    def leaves_list(self, node, depth=0):
+        #leaves = []
+        if isinstance(node, dict):
+            self.leaves_list(node['left'], depth+1)
+            self.leaves_list(node['right'], depth+1)
+        else:
+            self.leaves.append(node)
+        #return leaves
+        
+    def predict(self, node, test_data_row):
+    	if test_data_row[node['index']] < node['value']:
+    		if isinstance(node['left'], dict):
+    			return self.predict(node['left'], test_data_row)
+    		else:
+    			return node['left']
+    	else:
+    		if isinstance(node['right'], dict):
+    			return self.predict(node['right'], test_data_row)
+    		else:
+    			return node['right']
+
+    def tree_preds(self, test_set):
+        self.leaves = []
+        self.leaves_list(self.fittedtree, 0)
+        predictions = list()
+        for row in test_set:
+            prediction = self.predict(self.fittedtree, row)
+            predictions.append(self.leaves.index(prediction))
+        return predictions        
+    
+    def accuracy_val(self, xtest, ytest, xtrain, ytrain, metrics=['sse']):
+        args = {}
+        args['alpha'] = self.alpha
+        
+        # predictions show the leaf id falling
+        predictions = self.tree_preds(xtest)
+        predictions_in = self.tree_preds(xtrain)
+           
+        leaf_dict = dict((str(l),[]) for l in self.leaves)
+        leaf_dict_in = dict((str(l),[]) for l in self.leaves)
+        for l in range(len(self.leaves)):
+            leaf_dict[str(self.leaves[l])] = [ytest[i] for i in range(len(ytest)) if predictions[i] == l]
+            leaf_dict_in[str(self.leaves[l])] = [ytrain[i] for i in range(len(ytrain)) if predictions_in[i] == l]
+        
+        evals_dict = {}
+        for eval_method in metrics:
+            self.accuracy_func = eval('accuracy_' + eval_method)
+            eval_new = [self.accuracy_func(leaf_dict, args)]
+            eval_new += [self.accuracy_func(leaf_dict_in, args)]
+            evals_dict[eval_method] = eval_new
+            
+        return evals_dict
         

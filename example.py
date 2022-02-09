@@ -43,22 +43,46 @@ for i in range(x_dim):
         is_cat += [1]
     else:
         is_cat += [0]
-        
+
+# Creates a training and a test set        
 holdout_size = int(len(rows)/2) 
 train_index = list(sample(range(len(rows)), holdout_size))
 test_index = list(set(range(len(rows))) - set(train_index))
 
 train_set = [rows[index] for index in train_index]    
 test_set = [rows[index] for index in test_index]
-dataset = [train_set,test_set]
+dataset = [train_set, test_set]
 args = {}
 
+test_set = list()
+for row in dataset[1]:
+    row_copy = list(row)
+    test_set.append(row_copy)
+    row_copy[-1] = None
+
+self_test = list()
+for row in dataset[0]:
+    row_copy = list(row)
+    self_test.append(row_copy)
+    row_copy[-1] = None
+
+actual = [row[-1] for row in dataset[1]]
+actual_in = [row[-1] for row in dataset[0]]
+        
+# Fit the tree model
 CARTmodel = scoreCART(methods[0], 
                       train_set, 
                       tol, 
                       max_depth, 
                       min_node_size, 
                       num_quantiles, 
+                      alpha,
                       args = {'is_cat': is_cat, 'cov_uniqvals': cov_uniqvals})
-fittedCART = CARTmodel.build_tree()
+CARTmodel.build_tree()
+fittedtree = CARTmodel.fittedtree
 
+dict_eval = CARTmodel.accuracy_val(test_set, 
+                                   actual, 
+                                   self_test, 
+                                   actual_in, 
+                                   metrics=['sse', 'crps', 'dss', 'is1'])

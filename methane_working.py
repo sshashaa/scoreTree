@@ -6,7 +6,7 @@ Created on Sun Jan 23 18:16:29 2022
 @author: sarashashaani
 """
 import sys
-sys.path.append('/Users/sarashashaani/Documents/GitHub/simopt-admin/CART-with-scoring/')
+#sys.path.append('/Users/sarashashaani/Documents/GitHub/simopt-admin/CART-with-scoring/')
 
 import os
 cwd = os.getcwd()
@@ -360,6 +360,7 @@ def split(node, depth, tree_method):
         node['left'] = to_terminal(left)
     else:
         node['left'] = get_split(left, tree_method)
+        print(node['left'])
         split(node['left'], depth+1, tree_method)
     # process right child
     if len(right) < 3*min_node_size:
@@ -459,7 +460,7 @@ def plot(e_method):
     plt.subplot(1, 2, 1)
     plt.title('in-sample '+str(e_method), fontsize=20)
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    bp = plt.boxplot(dataset1.tolist(),positions = [1, 2, 3, 4], widths = 0.9)
+    bp = plt.boxplot(dataset1.tolist(),positions = [1], widths = 0.9)
     set_box_colors(bp)
     frame1 = plt.gca()  
     frame1.axes.set_xticklabels(methods, fontsize=14, rotation = 90)
@@ -469,7 +470,7 @@ def plot(e_method):
     plt.subplot(1, 2, 2)
     plt.title('out-of-sample '+str(e_method), fontsize=20)
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    bp = plt.boxplot(dataset2.tolist(),positions = [1, 2, 3, 4], widths = 0.9)
+    bp = plt.boxplot(dataset2.tolist(),positions = [1], widths = 0.9)
     set_box_colors(bp)
     frame1 = plt.gca()  
     frame1.axes.set_xticklabels(methods, fontsize=14, rotation = 90)
@@ -489,9 +490,10 @@ min_node_size = 100
 num_quantiles = 20
 total_reps = 4 # just using 4 for now because running in parallel on local computer
 alpha = .2
-data_title = "methane"
+data_title = "airfoil"
 
-methods = ["crps", "dss", "is1", "sse"]
+#methods = ["crps", "dss", "is1", "sse"]
+methods = ["sse"]
 params = str(max_depth)+str(min_node_size)+str(num_quantiles)+str(total_reps)+str(alpha)
 
 datafile = "data/test_"+data_title+".txt"
