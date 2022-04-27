@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb  3 16:46:35 2022
+Created on Tue Mar  8 11:37:37 2022
 
 @author: ozgesurer
 """
+#breakpoint()
 import numpy as np
 from newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split
 from accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1
+import copy
 
 class scoreCART():
-    def __init__(self, method, train_set, tol, max_depth, min_node_size, num_quantiles, alpha, args):
+    def __init__(self, method, train_set, tol, max_depth, min_node_size, num_quantiles, alpha, prune_thr, args):
 
         self.train_set = train_set
         self.x_dim = len(train_set[0]) - 1
@@ -24,6 +26,7 @@ class scoreCART():
         self.cov_uniqvals = args['cov_uniqvals']
         self.tol = tol
         self.alpha = alpha
+        self.prune_thr = prune_thr
                 
     # Find the empirical cdf of a sample, Outcome: quantiles and cumulative probabilities
     def ecdf(self, sample):
@@ -60,6 +63,8 @@ class scoreCART():
         min_node_size = self.min_node_size 
         b_index, b_value, b_groups = 999, 999, None
         b_score = self.new_split_funcs(nodetr, 0, args)
+        b_parent = copy.copy(b_score)
+        #print('b_parent:', b_parent)
         first_val = 0  
         split_occurs = 0
         
@@ -97,7 +102,11 @@ class scoreCART():
         if not split_occurs:
             print("no improvement - " + str(self.method))
             # log_file.write("no improvement - " + str(self.method))
-        return {'index':b_index, 'value':b_value, 'groups':b_groups}  
+        
+        node_size = sum([len(g) for g in b_groups])
+        #print('b_score:', b_score)
+        # print('improvement:', (b_parent-b_score)/node_size)
+        return {'index':b_index, 'value':b_value, 'groups':b_groups, 'score': b_score, 'improvement': (b_parent-b_score)/node_size}  
 
     # Return the observaions in the leaf    
     def to_terminal(self, group):
@@ -125,19 +134,32 @@ class scoreCART():
             node['left'], node['right'] = self.to_terminal(left), self.to_terminal(right)
             return
         
-        # process left child
+        #if depth == 1:
+            # process left child
         if len(left) < 3*min_node_size:
             node['left'] = self.to_terminal(left)
         else:
-            node['left'] = self.get_split(left)
-            self.split(node['left'], depth+1)
+            left_split = self.get_split(left)
             
-        # process right child
+            # if left_split['score'] < (self.prune_thr)*(self.initialscore):
+            if left_split['improvement'] < (self.prune_thr)*(self.initialimpr):
+                node['left'] = self.to_terminal(left)
+            else:
+                node['left'] = left_split
+                self.split(node['left'], depth+1)
+                
+            # process right child
         if len(right) < 3*min_node_size:
             node['right'] = self.to_terminal(right)
         else:
-            node['right'] = self.get_split(right)
-            self.split(node['right'], depth+1)
+            right_split = self.get_split(right)
+            
+            #if right_split['score'] < (self.prune_thr)*(self.initialscore):      
+            if right_split['improvement'] < (self.prune_thr)*(self.initialimpr): 
+                node['right'] = self.to_terminal(right)
+            else:
+                node['right'] = right_split
+                self.split(node['right'], depth+1)
 
     # Print a decision tree
     def print_tree(self, node, depth=0):
@@ -154,7 +176,10 @@ class scoreCART():
             print('%s[%s]' % ((depth*' ', len(node)))) 
                 
     def build_tree(self):
+        #C0 = self.new_split_funcs(self.train_set, 0, args=None)
         root = self.get_split(self.train_set)
+        self.initialscore = root['score']
+        self.initialimpr = root['improvement']
         self.split(root, 1)
         print("tree_method " + self.method + "\n###########################")
         self.print_tree(root, depth=0)
