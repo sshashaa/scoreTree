@@ -14,7 +14,7 @@ from joblib import Parallel, delayed
 import random
 import seaborn as sns
 
-# Example: crps and sse are not doing well. dss is doing well
+# Example: is1 is working best
 
 shape1, scale1 = 7, 2  
 s1 = np.random.gamma(shape1, scale1, 1000)
