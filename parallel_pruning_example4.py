@@ -32,6 +32,7 @@ plt.hist(s1, density=True, alpha=0.5, label='-1 < x < -0.5', bins=50, color='blu
 plt.hist(s2, density=True, alpha=0.5, label='-0.5 < x < 0', bins=50, color='red')
 plt.hist(s3, density=True, alpha=0.5, label='0 < x < 0.5', bins=50, color='green')
 plt.hist(s4, density=True, alpha=0.5, label='0.5 < x < 1', bins=50, color='orange')
+plt.savefig('synth_fig/synth4_hist.png')
 plt.legend()
 plt.show()
 
@@ -42,7 +43,7 @@ def column(matrix, i):
 max_depth = 4
 min_node_size = 100
 num_quantiles = 20
-total_reps = 10 
+total_reps = 30 
 alpha = .2
 tol = 0
 
@@ -109,7 +110,7 @@ def OneRep(k):
     
     methods = ["crps", "dss", "is1", "sse"]
     dictable = []
-    prune_thr_list = [0, 0.1, 0.3, 0.5]
+    prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
     for pr in prune_thr_list:
         for m in methods: 
             # Fit the tree model
@@ -148,7 +149,7 @@ df_scores = pd.concat(liste)
 
 
 metrics = ['sse', 'crps', 'dss', 'is1']
-prune_thr_list = [0, 0.1, 0.3, 0.5]
+prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
 
 fig, axes = plt.subplots(len(metrics), len(prune_thr_list), sharex=True, figsize=(25, 25))
 font = {'family' : 'normal',
@@ -165,6 +166,7 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Test' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
+plt.savefig('synth_fig/synth4_test.png')
 plt.show()
         
 fig, axes = plt.subplots(len(metrics), len(prune_thr_list), sharex=True, figsize=(25, 25))
@@ -178,4 +180,5 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Train' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
+plt.savefig('synth_fig/synth4_train.png')
 plt.show()
