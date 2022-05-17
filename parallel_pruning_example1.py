@@ -66,7 +66,7 @@ def synthetic1(n):
         data.append([x_i, float(y)])
     return data
 
-n = 5000
+n = 1000
 rows = synthetic1(n)
 x_dim = len(rows[0])-1
 #### #### #### #### #### #### #### ####
