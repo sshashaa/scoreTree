@@ -17,12 +17,13 @@ prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
 total_reps = 30
 liste = []
 
-for i in range(total_reps):
-    ls = rows[i].copy()
-    ls['Rep'] = i
-    liste.append(ls)
-df_scores = pd.concat(liste)
+# for i in range(total_reps):
+#     ls = rows.iloc[i].copy()
+#     ls['Rep'] = i
+#     liste.append(ls)
+# df_scores = pd.concat(liste)
 
+df_scores = rows
 
 pval_test = np.zeros((4,4,5))
 for th_id, th in enumerate(prune_thr_list):
@@ -33,7 +34,7 @@ for th_id, th in enumerate(prune_thr_list):
             if meth_id == metric_id:
                 pval_test[metric_id][meth_id][th_id] = 1
             else:
-                pval_test[metric_id][meth_id][th_id] = stats.ttest_ind(df.Test, df_met.Test, equal_var=False).pvalue
+                pval_test[metric_id][meth_id][th_id] = stats.ttest_rel(df.Test, df_met.Test).pvalue
 
 
 pval_train = np.zeros((4,4,5))
@@ -45,4 +46,4 @@ for th_id, th in enumerate(prune_thr_list):
             if meth_id == metric_id:
                 pval_train[metric_id][meth_id][th_id] = 1
             else:
-                pval_train[metric_id][meth_id][th_id] = stats.ttest_ind(df.Train, df_met.Train, equal_var=False).pvalue
+                pval_train[metric_id][meth_id][th_id] = stats.ttest_rel(df.Train, df_met.Train).pvalue
