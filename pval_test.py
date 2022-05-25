@@ -14,9 +14,9 @@ def compute_pval(which_dat='Test'):
                     pval[metric_id][method_id][th_id] = 1
                 else:
                     if which_dat == 'Test':
-                        pval[metric_id][method_id][th_id] = stats.ttest_rel(df_met.Test, df.Test, alternative='less').pvalue
+                        pval[metric_id][method_id][th_id] = stats.ttest_rel(df_met.Test, df.Test, alternative='greater').pvalue
                     else:
-                        pval[metric_id][method_id][th_id] = stats.ttest_rel(df_met.Train, df.Train, alternative='less').pvalue
+                        pval[metric_id][method_id][th_id] = stats.ttest_rel(df_met.Train, df.Train, alternative='greater').pvalue
     return pval
 
 def compile_pdf(pval, output_filename='synth1.tex', threshold_id=0):
