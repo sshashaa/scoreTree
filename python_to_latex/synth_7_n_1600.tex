@@ -1,0 +1,139 @@
+\documentclass[10pt]{article}
+
+\usepackage{diagbox}
+
+\begin{document}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 1.0 & 1.0 & 1.0 \\ 
+ CRPS & 0.8661 & 1.0 & 0.9615 & 1.0  \\ 
+ DSS & 1.0 & 0.9999 & 1.0 & 1.0  \\ 
+ IS1 & 0.9995 & 0.9999 & 0.9983 & 1.0  \\ 
+ \hline
+  \end{tabular}
+  \caption{Test data, Pruning threshold=0}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.9999 & 1.0 & 1.0 \\ 
+ CRPS & 0.9992 & 1.0 & 1.0 & 1.0  \\ 
+ DSS & 0.9978 & 0.4911 & 1.0 & 0.9997  \\ 
+ IS1 & 1.0 & 0.9764 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Test data, Pruning threshold=0.1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.9896 & 1.0 & 1.0 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 0.9999  \\ 
+ DSS & 0.9302 & 0.0 & 1.0 & 0.0  \\ 
+ IS1 & 1.0 & 0.737 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Test data, Pruning threshold=0.3}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.9565 & 1.0 & 0.9995 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 1.0  \\ 
+ DSS & 0.9859 & 0.0 & 1.0 & 0.0  \\ 
+ IS1 & 1.0 & 0.09 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Test data, Pruning threshold=0.5}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0874 & 1.0 & 0.3965 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 0.0976  \\ 
+ DSS & 1.0 & 0.0 & 1.0 & 0.0  \\ 
+ IS1 & 1.0 & 0.7962 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Test data, Pruning threshold=0.8}
+\end{table}
+
+\newpage
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0 & 0.0 & 0.0 \\ 
+ CRPS & 1.0 & 1.0 & 0.1624 & 0.0  \\ 
+ DSS & 1.0 & 0.2609 & 1.0 & 0.0115  \\ 
+ IS1 & 1.0 & 0.0932 & 0.1655 & 1.0  \\ 
+ \hline
+  \end{tabular}
+  \caption{Training data, Pruning threshold=0}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0 & 0.0 & 0.0 \\ 
+ CRPS & 1.0 & 1.0 & 0.0007 & 0.0  \\ 
+ DSS & 1.0 & 0.9862 & 1.0 & 0.2777  \\ 
+ IS1 & 1.0 & 0.3264 & 0.1749 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Training data, Pruning threshold=0.1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0003 & 0.0 & 0.0 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 0.0008  \\ 
+ DSS & 0.9999 & 0.0078 & 1.0 & 0.0012  \\ 
+ IS1 & 1.0 & 0.1583 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Training data, Pruning threshold=0.3}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0 & 0.0007 & 0.0 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 0.0062  \\ 
+ DSS & 0.9998 & 0.0 & 1.0 & 0.0  \\ 
+ IS1 & 1.0 & 0.7533 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Training data, Pruning threshold=0.5}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c||c c c c } 
+ \hline
+\diagbox{Metrics}{Methods} 	& SSE & CRPS & DSS & IS1 \\ \hline \hline
+ SSE & 1.0 & 0.0 & 0.0002 & 0.0 \\ 
+ CRPS & 1.0 & 1.0 & 1.0 & 0.0976  \\ 
+ DSS & 1.0 & 0.0 & 1.0 & 0.0  \\ 
+ IS1 & 1.0 & 0.7962 & 1.0 & 1.0  \\ 
+ \hline
+\end{tabular}
+  \caption{Training data, Pruning threshold=0.8}
+\end{table}
+
+\end{document}

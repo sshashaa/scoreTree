@@ -41,11 +41,14 @@ def column(matrix, i):
 
 # inputs
 max_depth = 4
-min_node_size = 100
+min_node_size = 10
 num_quantiles = 20
 total_reps = 30 
 alpha = .2
 tol = 0
+n = 1600
+
+filename = 'synth4_minnode_' + str(min_node_size) + '_n_' + str(n)
 
 
 def synthetic1(n):
@@ -66,7 +69,6 @@ def synthetic1(n):
         data.append([x_i, float(y)])
     return data
 
-n = 5000
 rows = synthetic1(n)
 x_dim = len(rows[0])-1
 #### #### #### #### #### #### #### ####
@@ -83,7 +85,7 @@ for i in range(x_dim):
 
 
 def OneRep(k):
-    random.seed(k + 2010)
+    random.seed(k + 100)
     # Creates a training and a test set        
     holdout_size = int(len(rows)/2) 
     train_index = list(random.sample(range(len(rows)), holdout_size))
@@ -166,7 +168,7 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Test' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
-plt.savefig('synth_fig/synth4_test.png')
+plt.savefig('synth_fig/test_' + filename + '.png')
 plt.show()
         
 fig, axes = plt.subplots(len(metrics), len(prune_thr_list), sharex=True, figsize=(25, 25))
@@ -180,5 +182,7 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Train' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
-plt.savefig('synth_fig/synth4_train.png')
+plt.savefig('synth_fig/train_' + filename + '.png')
 plt.show()
+
+df_scores.to_csv('synth_fig/' + filename + '.csv', sep=',')
