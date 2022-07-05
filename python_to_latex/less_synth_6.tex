@@ -1,0 +1,62 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage{diagbox}
+
+\begin{document}
+
+
+\begin{table}
+\footnotesize
+\begin{tabular}{ cc||c c c c | c c c c | c c c c | c c c c| c c c c} 
+ \hline
+\diagbox{Metrics}{Methods} 	& n & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 \\ \hline \hline
+ 					SSE & 200 & 1.0 & 0.57 & 0.99 & 0.99 & 1.0 & 0.02 & 0.04 & 0.2& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					SSE & 400 & 1.0 & 0.19 & 0.07 & 0.52& 1.0 & 0.06 & 0.02 & 0.42& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					SSE & 800 & 1.0 & 0.18 & 1.0 & 0.83& 1.0 & 0.16 & 0.17 & 0.71& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\  
+ 					SSE & 1600 & 1.0 & 0.39 & 1.0 & 0.74& 1.0 & 0.09 & 0.08 & 0.73& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline
+ 					CRPS & 200 & 0.17 & 1.0 & 0.89 & 0.99& 0.98 & 1.0 & 0.94 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM  & XXX & YYY & ZZZ & MMM\\ 
+ 					CRPS & 400 & 0.82 & 1.0 & 0.15 & 0.76& 0.94 & 1.0 & 0.04 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					CRPS & 800 & 0.39 & 1.0 & 1.0 & 0.92& 0.85 & 1.0 & 0.91 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					CRPS & 1600 & 0.61 & 1.0 & 1.0 & 0.95& 0.92 & 1.0 & 0.77 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ \hline
+ 					DSS & 200 & 0.13 & 0.3 & 1.0 & 0.98 & 1.0 & 0.93 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					DSS & 400 & 0.13 & 0.07 & 1.0 & 0.91 & 1.0 & 0.98 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					DSS & 800 & 0.02 & 0.0 & 1.0 & 0.91 & 0.97 & 0.95 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					DSS & 1600 & 0.53 & 0.21 & 1.0 & 0.87 & 1.0 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline 
+ 					IS1 & 200 & 0.88 & 0.94 & 0.95 & 1.0 & 0.98 & 0.78 & 0.99 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 400 & 0.64 & 0.66 & 0.76 & 1.0 & 0.98 & 1.0 & 0.88 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 800 & 0.97 & 0.95 & 0.99 & 1.0 & 0.96 & 0.95 & 0.97 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 1600 & 0.98 & 0.98 & 0.99 & 1.0 & 0.97 & 0.99 & 0.88 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline
+ \hline
+  \end{tabular}
+  \caption{Test data}
+\end{table}
+
+
+\newpage
+
+\begin{table}
+\footnotesize
+\begin{tabular}{ cc||c c c c | c c c c | c c c c | c c c c| c c c c} 
+ \hline
+\diagbox{Metrics}{Methods} 	& n & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 & SSE & CRPS & DSS & IS1 \\ \hline \hline
+ 					SSE & 200 & 1.0 & 0.51 & 1.0 & 1.0 & 1.0 & 0.02 & 0.02 & 0.52& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					SSE & 400 & 1.0 & 0.09 & 0.06 & 0.8& 1.0 & 0.05 & 0.02 & 0.75& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					SSE & 800 & 1.0 & 0.72 & 1.0 & 0.92& 1.0 & 0.1 & 0.19 & 0.79& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\  
+ 					SSE & 1600 & 1.0 & 0.33 & 1.0 & 0.73& 1.0 & 0.08 & 0.17 & 0.9& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline
+ 					CRPS & 200 & 0.83 & 1.0 & 1.0 & 1.0& 0.98 & 1.0 & 0.07 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM  & XXX & YYY & ZZZ & MMM\\ 
+ 					CRPS & 400 & 0.99 & 1.0 & 0.45 & 0.92& 0.95 & 1.0 & 0.01 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					CRPS & 800 & 0.59 & 1.0 & 1.0 & 0.94& 0.9 & 1.0 & 0.99 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					CRPS & 1600 & 0.84 & 1.0 & 1.0 & 0.9& 0.92 & 1.0 & 0.99 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ \hline
+ 					DSS & 200 & 0.65 & 0.58 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM \\ 
+ 					DSS & 400 & 0.71 & 0.29 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					DSS & 800 & 0.06 & 0.04 & 1.0 & 0.98 & 0.99 & 0.96 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					DSS & 1600 & 0.37 & 0.21 & 1.0 & 0.95 & 1.0 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline
+ 					IS1 & 200 & 1.0 & 1.0 & 1.0 & 1.0 & 0.99 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 400 & 1.0 & 1.0 & 1.0 & 1.0 & 0.97 & 0.98 & 0.65 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 800 & 1.0 & 1.0 & 1.0 & 1.0 & 0.98 & 1.0 & 1.0 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ 
+ 					IS1 & 1600 & 1.0 & 1.0 & 1.0 & 1.0 & 0.97 & 0.97 & 0.99 & 1.0& XXX & YYY & ZZZ & MMM& XXX & YYY & ZZZ & MMM & XXX & YYY & ZZZ & MMM\\ \hline
+ \hline
+  \end{tabular}
+  \caption{Training data}
+\end{table}
+\end{document}

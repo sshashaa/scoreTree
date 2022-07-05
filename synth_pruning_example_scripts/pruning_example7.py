@@ -42,7 +42,7 @@ def column(matrix, i):
 
 # inputs
 max_depth = 4
-min_node_size = 100
+min_node_size = 10
 num_quantiles = 20
 total_reps = 4 
 alpha = .2
@@ -67,7 +67,7 @@ def synthetic1(n):
         data.append([x_i, float(y)])
     return data
 
-n = 5000
+n = 200
 rows = synthetic1(n)
 x_dim = len(rows[0])-1
 #### #### #### #### #### #### #### ####
@@ -107,38 +107,41 @@ for row in dataset[0]:
 actual = [row[-1] for row in dataset[1]]
 actual_in = [row[-1] for row in dataset[0]]
 
+#test_set = np.copy(self_test)
+#actual = np.copy(actual_in)
+
 methods = ["crps", "dss", "is1", "sse"]
 dictable = []
 #prune_thr_list = [0.8]
+prune_thr_list = [0]
+for pr in prune_thr_list:
+    for m in methods: 
 
-for m in methods: 
-    if m in ["crps"]:
-        pr = 0.35
-    if m in ['sse']:
-        pr = 0.15
-    else:
-        pr = 0.2
-    # Fit the tree model
-    CARTmodel = scoreCART(m, 
-                          train_set, 
-                          tol, 
-                          max_depth, 
-                          min_node_size, 
-                          num_quantiles, 
-                          alpha,
-                          pr,
-                          args = {'is_cat': is_cat, 'cov_uniqvals': cov_uniqvals})
-    CARTmodel.build_tree()
-    fittedtree = CARTmodel.fittedtree
-    
-    dict_eval = CARTmodel.accuracy_val(test_set, 
-                                       actual, 
-                                       self_test, 
-                                       actual_in, 
-                                       metrics=['sse', 'crps', 'dss', 'is1'])
-    for metr in ['sse', 'crps', 'dss', 'is1']:
-        d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][0], 2), 'Test': np.round(dict_eval[metr][1], 2)}
-        dictable.append(d)
+        # Fit the tree model
+        CARTmodel = scoreCART(m, 
+                              train_set, 
+                              tol, 
+                              max_depth, 
+                              min_node_size, 
+                              num_quantiles, 
+                              alpha,
+                              pr,
+                              args = {'is_cat': is_cat, 'cov_uniqvals': cov_uniqvals})
+        CARTmodel.build_tree()
+        fittedtree = CARTmodel.fittedtree
+        
+        dict_eval = CARTmodel.accuracy_val(test_set, 
+                                           actual, 
+                                           self_test, 
+                                           actual_in, 
+                                           metrics=['sse', 'crps', 'dss', 'is1'])
+        for metr in ['sse', 'crps', 'dss', 'is1']:
+            d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][0], 2), 'Test': np.round(dict_eval[metr][1], 2)}
+            dictable.append(d)
 dfres = pd.DataFrame(dictable)
-print(dfres)    
+# print(dfres)    
 
+print(dfres[dfres['Metric'] == 'sse'])
+print(dfres[dfres['Metric'] == 'crps'])
+print(dfres[dfres['Metric'] == 'dss'])
+print(dfres[dfres['Metric'] == 'is1'])

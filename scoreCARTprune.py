@@ -224,18 +224,25 @@ class scoreCART():
         # predictions show the leaf id falling
         predictions = self.tree_preds(xtest)
         predictions_in = self.tree_preds(xtrain)
-           
+
         leaf_dict = dict((str(l),[]) for l in self.leaves)
         leaf_dict_in = dict((str(l),[]) for l in self.leaves)
+        
+        #print(self.leaves)
+        
         for l in range(len(self.leaves)):
             leaf_dict[str(self.leaves[l])] = [ytest[i] for i in range(len(ytest)) if predictions[i] == l]
             leaf_dict_in[str(self.leaves[l])] = [ytrain[i] for i in range(len(ytrain)) if predictions_in[i] == l]
         
+ 
         evals_dict = {}
         for eval_method in metrics:
             self.accuracy_func = eval('accuracy_' + eval_method)
+
             eval_new = [self.accuracy_func(leaf_dict, args)]
+            print(eval_new)
             eval_new += [self.accuracy_func(leaf_dict_in, args)]
+            print(eval_new)
             evals_dict[eval_method] = eval_new
             
         return evals_dict

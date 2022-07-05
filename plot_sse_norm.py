@@ -12,7 +12,7 @@ from scipy import stats
 import os
 import seaborn as sns
 
-n = [200, 400]
+n = [200, 400, 800, 1600]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1]
 synth_id = [6, 7]
@@ -28,7 +28,7 @@ for ns in n:
                     type_data = 'Easy'
                     
                     df_compact = pd.DataFrame()
-                    filename = 'synth_fig/synth' + str(i) + '_minnode_10_n_' + str(ns) + '.csv'
+                    filename = 'less_noise_examples/synth' + str(i) + '_n_' + str(ns) + '.csv'
                         
                     # Read csv.
                     df_scores = pd.read_csv(filename)
@@ -46,7 +46,7 @@ for ns in n:
                     type_data = 'Hard'
                     
                     df_compact = pd.DataFrame()
-                    filename = 'synth_fig/synth' + str(i) + '_minnode_10_n_' + str(ns) + '.csv'
+                    filename = 'less_noise_examples/synth' + str(i) + '_n_' + str(ns) + '.csv'
                         
                     # Read csv.
                     df_scores = pd.read_csv(filename)
