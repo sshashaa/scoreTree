@@ -42,29 +42,37 @@ def compile_pdf(pval, pvaltest, output_filename='synth1.tex'):
     df_test = np.copy(pvaltest)
     df_tr = np.copy(pval)
     modified_lines = []
-    coln = 2
+    coln = 5
     for l in lines:
         if len(l) > 1:
             if 'SSE' in l.split()[0]:
                 if ssecounter >= 4:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_tr[0][0][i][ssecounter-4], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_tr[0][0][i][ssecounter-4], 2)), 1)
+                        l = l.replace('XXX', format(df_tr[0][0][i][ssecounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_tr[0][1][i][ssecounter-4], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_tr[0][1][i][ssecounter-4], 2)), 1)
+                        l = l.replace('YYY', format(df_tr[0][1][i][ssecounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_tr[0][2][i][ssecounter-4], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_tr[0][2][i][ssecounter-4], 2)), 1)
+                        l = l.replace('ZZZ', format(df_tr[0][2][i][ssecounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_tr[0][3][i][ssecounter-4], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_tr[0][3][i][ssecounter-4], 2)), 1)
+                        l = l.replace('MMM', format(df_tr[0][3][i][ssecounter-4], '.2f'), 1)
                         
                 else:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_test[0][0][i][ssecounter], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_test[0][0][i][ssecounter], 2)), 1)
+                        l = l.replace('XXX', format(df_test[0][0][i][ssecounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_test[0][1][i][ssecounter], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_test[0][1][i][ssecounter], 2)), 1)
+                        l = l.replace('YYY', format(df_test[0][1][i][ssecounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_test[0][2][i][ssecounter], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_test[0][2][i][ssecounter], 2)), 1)
+                        l = l.replace('ZZZ', format(df_test[0][2][i][ssecounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_test[0][3][i][ssecounter], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_test[0][3][i][ssecounter], 2)), 1)
+                        l = l.replace('MMM', format(df_test[0][3][i][ssecounter], '.2f'), 1)
 
                 ssecounter += 1
 
@@ -72,23 +80,31 @@ def compile_pdf(pval, pvaltest, output_filename='synth1.tex'):
             if 'CRPS' in l.split()[0]:
                 if crpscounter >= 4:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_tr[1][0][i][crpscounter-4], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_tr[1][0][i][crpscounter-4], 2)), 1)
+                        l = l.replace('XXX', format(df_tr[1][0][i][crpscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_tr[1][1][i][crpscounter-4], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_tr[1][1][i][crpscounter-4], 2)), 1)
+                        l = l.replace('YYY', format(df_tr[1][1][i][crpscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_tr[1][2][i][crpscounter-4], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_tr[1][2][i][crpscounter-4], 2)), 1)
+                        l = l.replace('ZZZ', format(df_tr[1][2][i][crpscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_tr[1][3][i][crpscounter-4], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_tr[1][3][i][crpscounter-4], 2)), 1)
+                        l = l.replace('MMM', format(df_tr[1][3][i][crpscounter-4], '.2f'), 1)
                         
                 else:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_test[1][0][i][crpscounter], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_test[1][0][i][crpscounter], 2)), 1)
+                        l = l.replace('XXX', format(df_test[1][0][i][crpscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_test[1][1][i][crpscounter], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_test[1][1][i][crpscounter], 2)), 1)
+                        l = l.replace('YYY', format(df_test[1][1][i][crpscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_test[1][2][i][crpscounter], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_test[1][2][i][crpscounter], 2)), 1)
+                        l = l.replace('ZZZ', format(df_test[1][2][i][crpscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_test[1][3][i][crpscounter], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_test[1][3][i][crpscounter], 2)), 1)
+                        l = l.replace('MMM', format(df_test[1][3][i][crpscounter], '.2f'), 1)
 
                 crpscounter += 1
 
@@ -96,44 +112,60 @@ def compile_pdf(pval, pvaltest, output_filename='synth1.tex'):
             if 'DSS' in l.split()[0]:
                 if dsscounter >= 4:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_tr[2][0][i][dsscounter-4], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_tr[2][0][i][dsscounter-4], 2)), 1)
+                        l = l.replace('XXX', format(df_tr[2][0][i][dsscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_tr[2][1][i][dsscounter-4], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_tr[2][1][i][dsscounter-4], 2)), 1)
+                        l = l.replace('YYY', format(df_tr[2][1][i][dsscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_tr[2][2][i][dsscounter-4], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_tr[2][2][i][dsscounter-4], 2)), 1)
+                        l = l.replace('ZZZ', format(df_tr[2][2][i][dsscounter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_tr[2][3][i][dsscounter-4], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_tr[2][3][i][dsscounter-4], 2)), 1)
+                        l = l.replace('MMM', format(df_tr[2][3][i][dsscounter-4], '.2f'), 1)
                 else:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_test[2][0][i][dsscounter], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_test[2][0][i][dsscounter], 2)), 1)
+                        l = l.replace('XXX', format(df_test[2][0][i][dsscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_test[2][1][i][dsscounter], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_test[2][1][i][dsscounter], 2)), 1)
+                        l = l.replace('YYY', format(df_test[2][1][i][dsscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_test[2][2][i][dsscounter], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_test[2][2][i][dsscounter], 2)), 1)
+                        l = l.replace('ZZZ', format(df_test[2][2][i][dsscounter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_test[2][3][i][dsscounter], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_test[2][3][i][dsscounter], 2)), 1)
+                        l = l.replace('MMM', format(df_test[2][3][i][dsscounter], '.2f'), 1)
 
                 dsscounter += 1
 
             if 'IS1' in l.split()[0]:
                 if is1counter >= 4:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_tr[3][0][i][is1counter-4], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_tr[3][0][i][is1counter-4], 2)), 1)
+                        l = l.replace('XXX', format(df_tr[3][0][i][is1counter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_tr[3][1][i][is1counter-4], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_tr[3][1][i][is1counter-4], 2)), 1)
+                        l = l.replace('YYY', format(df_tr[3][1][i][is1counter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_tr[3][2][i][is1counter-4], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_tr[3][2][i][is1counter-4], 2)), 1)
+                        l = l.replace('ZZZ', format(df_tr[3][2][i][is1counter-4], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_tr[3][3][i][is1counter-4], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_tr[3][3][i][is1counter-4], 2)), 1)
+                        l = l.replace('MMM', format(df_tr[3][3][i][is1counter-4], '.2f'), 1)
                 else:
                     for i in range(coln):
-                        l = l.replace('XXX', str(np.round(df_test[3][0][i][is1counter], 2)), 1)
+                        # l = l.replace('XXX', str(np.round(df_test[3][0][i][is1counter], 2)), 1)
+                        l = l.replace('XXX', format(df_test[3][0][i][is1counter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('YYY', str(np.round(df_test[3][1][i][is1counter], 2)), 1)
+                        # l = l.replace('YYY', str(np.round(df_test[3][1][i][is1counter], 2)), 1)
+                        l = l.replace('YYY', format(df_test[3][1][i][is1counter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('ZZZ', str(np.round(df_test[3][2][i][is1counter], 2)), 1)
+                        # l = l.replace('ZZZ', str(np.round(df_test[3][2][i][is1counter], 2)), 1)
+                        l = l.replace('ZZZ', format(df_test[3][2][i][is1counter], '.2f'), 1)
                     for i in range(coln):
-                        l = l.replace('MMM', str(np.round(df_test[3][3][i][is1counter], 2)), 1)
+                        # l = l.replace('MMM', str(np.round(df_test[3][3][i][is1counter], 2)), 1)
+                        l = l.replace('MMM', format(df_test[3][3][i][is1counter], '.2f'), 1)
 
                 is1counter += 1
 
@@ -150,7 +182,7 @@ n = [200, 400, 800, 1600]
 metrics = ['sse', 'crps', 'dss', 'is1']
 methods = ['sse', 'crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
-prune_thr_list = [0, 0.1]
+# prune_thr_list = [0, 0.1]
 total_reps = 30
 synth_id = [1,2,3,4,5,6,7]
 synth_id = [6,7]
