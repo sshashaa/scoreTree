@@ -72,7 +72,7 @@ def OneRep(k):
     
     methods = ["crps", "dss", "is1", "sse"]
     dictable = []
-    prune_thr_list = [0, 0.1]
+    prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
     for pr in prune_thr_list:
         for m in methods: 
             # Fit the tree model
@@ -93,7 +93,7 @@ def OneRep(k):
                                                actual_in, 
                                                metrics=['sse', 'crps', 'dss', 'is1'])
             for metr in ['sse', 'crps', 'dss', 'is1']:
-                d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][0], 2), 'Test': np.round(dict_eval[metr][1], 2), 'Threshold': pr}
+                d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][1], 2), 'Test': np.round(dict_eval[metr][0], 2), 'Threshold': pr}
                 dictable.append(d)
     dfres = pd.DataFrame(dictable)
     return dfres

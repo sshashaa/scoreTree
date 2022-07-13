@@ -68,11 +68,11 @@ for ns in n:
                     col="Method",
                     data=df_all, kind="box", sharey=False)
 
-        boxplot.fig.suptitle('n=' + str(ns) + ', thr=' + str(thr), fontsize=12)        
+        boxplot.fig.suptitle('n=' + str(ns) + ', thr=' + str(thr), fontsize=12,  y=1.12)      
         boxplot = sns.catplot(x="Type", y="Train",
                     col="Method",
                     data=df_all, kind="box", sharey=False)
-        boxplot.fig.suptitle('n=' + str(ns) + ', thr=' + str(thr), fontsize=12)   
+        boxplot.fig.suptitle('n=' + str(ns) + ', thr=' + str(thr), fontsize=12, y=1.12)   
 
            
 

@@ -68,7 +68,7 @@ def OneRep(k):
     
     methods = ["crps", "dss", "is1", "sse"]
     dictable = []
-    prune_thr_list = [0, 0.1]
+    prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
     for pr in prune_thr_list:
         for m in methods: 
             # Fit the tree model
