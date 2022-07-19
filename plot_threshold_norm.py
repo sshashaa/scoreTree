@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 n = [200, 400, 800, 1600]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
-i = 7 
+i = 6
 
 # y-axis: Threshold
 for ns in n:
@@ -79,8 +79,8 @@ for thr in prune_thr_list:
             df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == thr)]
             df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == m) & (df_scores['Threshold'] == thr)]
             
-            diff_train = np.array(df1['Train']) -  np.array(df2['Train'])
-            diff_test = np.array(df1['Test']) -  np.array(df2['Test'])
+            diff_train = np.array(df1['Train']) - np.array(df2['Train'])
+            diff_test = np.array(df1['Test']) - np.array(df2['Test'])
 
             data = {'Train': diff_train/np.sqrt(np.var(diff_train)),
                     'Test': diff_test/np.sqrt(np.var(diff_test)),
@@ -117,9 +117,47 @@ for thr in prune_thr_list:
     boxplot.fig.suptitle('Threshold=' + str(thr), fontsize=14, y=1.12)              
 
         
+# y-axis: percentage
+df_all = []
+for ns in n:
+    filename = 'less_noise_examples/synth' + str(i) + '_n_' + str(ns) + '.csv'
+    df_scores = pd.read_csv(filename)
+    for thr in prune_thr_list:
+        for m in methods:
+
+            df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == thr)]
+            df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == m) & (df_scores['Threshold'] == thr)]
             
+            diff_train = np.array(df1['Train']) > np.array(df2['Train'])
+            diff_test = np.array(df1['Test']) > np.array(df2['Test'])
+
+            data = {'Train(%)': 100*np.mean(diff_train),
+                    'Test(%)': 100*np.mean(diff_test),
+                    'Method': m,
+                    'Threshold': thr,
+                    'n': ns}
+
+            df_all.append(data)
             
+
+df_all = pd.DataFrame(df_all)
+
+g = sns.FacetGrid(df_all, col='n', hue='Method')
+g = g.map(sns.lineplot, 'Threshold', 'Train(%)', ci=None).add_legend()
+plt.savefig('paper_figures/train_line_' + 'synth_' + str(i) + '_n' + '.png') 
             
+g = sns.FacetGrid(df_all, col='Threshold', hue='Method')
+g = g.map(sns.lineplot, 'n', 'Train(%)', ci=None).add_legend()    
+plt.savefig('paper_figures/train_line_' + 'synth_' + str(i) + '_threshold' + '.png') 
+
+g = sns.FacetGrid(df_all, col='n', hue='Method')
+g = g.map(sns.lineplot, 'Threshold', 'Test(%)', ci=None).add_legend()
+plt.savefig('paper_figures/test_line_' + 'synth_' + str(i) + '_n' + '.png') 
             
+g = sns.FacetGrid(df_all, col='Threshold', hue='Method')
+g = g.map(sns.lineplot, 'n', 'Test(%)', ci=None).add_legend()    
+plt.savefig('paper_figures/test_line_' + 'synth_' + str(i) + '_threshold' + '.png')         
+
+df_all.to_csv('paper_figures/' + 'anova_synth_' + str(i) + '.csv', sep=',')      
             
             
