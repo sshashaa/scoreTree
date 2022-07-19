@@ -11,11 +11,12 @@ import numpy as np
 from scipy import stats
 import os
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 n = [200, 400, 800, 1600]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
-i = 7 
+i = 6 
 
 # y-axis: Threshold
 for ns in n:
@@ -39,15 +40,31 @@ for ns in n:
             df = pd.DataFrame(data)
             df_all = df_all.append(df)
     
-    boxplot = sns.catplot(x="Threshold", y="Train",
-                col="Method", 
-                data=df_all, kind="box", sharey=True)
-    boxplot.fig.suptitle('n=' + str(ns), fontsize=12,  y=1.12)    
+    boxplot = sns.catplot(x="Threshold",
+                          y="Train",
+                          col="Method", 
+                          data=df_all, 
+                          kind="box", 
+                          sharey=True)
+    ax1, ax2, ax3 = boxplot.axes[0]
+    ax1.axhline(0, ls='--', color='red')
+    ax2.axhline(0, ls='--', color='red')
+    ax3.axhline(0, ls='--', color='red')
+    plt.savefig('paper_figures/train_' + 'synth_' + str(i) + '_n=' + str(ns) + '.png')     
+    boxplot.fig.suptitle('n=' + str(ns), fontsize=14,  y=1.12)    
     
-    boxplot = sns.catplot(x="Threshold", y="Test",
-                col="Method",
-                data=df_all, kind="box", sharey=True)
-    boxplot.fig.suptitle('n=' + str(ns), fontsize=12, y=1.12)   
+    boxplot = sns.catplot(x="Threshold", 
+                          y="Test",
+                          col="Method",
+                          data=df_all, 
+                          kind="box", 
+                          sharey=True)
+    ax1, ax2, ax3 = boxplot.axes[0]
+    ax1.axhline(0, ls='--', color='red')
+    ax2.axhline(0, ls='--', color='red')
+    ax3.axhline(0, ls='--', color='red')
+    plt.savefig('paper_figures/test_' + 'synth_' + str(i) + '_n=' + str(ns) + '.png') 
+    boxplot.fig.suptitle('n=' + str(ns), fontsize=14, y=1.12)   
 
 
 # y-axis: Sample size
@@ -73,15 +90,31 @@ for thr in prune_thr_list:
             df = pd.DataFrame(data)
             df_all = df_all.append(df)
      
-    boxplot = sns.catplot(x="n", y="Train",
-                col="Method", 
-                data=df_all, kind="box", sharey=True)
-    boxplot.fig.suptitle('Threshold=' + str(thr), fontsize=12,  y=1.12)    
+    boxplot = sns.catplot(x="n",
+                          y="Train",
+                          col="Method", 
+                          data=df_all, 
+                          kind="box", 
+                          sharey=True)
+    ax1, ax2, ax3 = boxplot.axes[0]
+    ax1.axhline(0, ls='--', color='red')
+    ax2.axhline(0, ls='--', color='red')
+    ax3.axhline(0, ls='--', color='red')
+    plt.savefig('paper_figures/train_' + 'synth_' + str(i) + '_Threshold=' + str(thr) + '.png')   
+    boxplot.fig.suptitle('Threshold=' + str(thr), fontsize=14,  y=1.12)    
     
-    boxplot = sns.catplot(x="n", y="Test",
-                col="Method",
-                data=df_all, kind="box", sharey=True)
-    boxplot.fig.suptitle('Threshold=' + str(thr), fontsize=12, y=1.12)              
+    boxplot = sns.catplot(x="n", 
+                          y="Test",
+                          col="Method",
+                          data=df_all, 
+                          kind="box", 
+                          sharey=True)
+    ax1, ax2, ax3 = boxplot.axes[0]
+    ax1.axhline(0, ls='--', color='red')
+    ax2.axhline(0, ls='--', color='red')
+    ax3.axhline(0, ls='--', color='red')
+    plt.savefig('paper_figures/test_' + 'synth_' + str(i) + '_Threshold=' + str(thr) + '.png')   
+    boxplot.fig.suptitle('Threshold=' + str(thr), fontsize=14, y=1.12)              
 
         
             
