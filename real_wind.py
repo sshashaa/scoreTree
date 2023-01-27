@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Nov 15 21:54:22 2022
+Created on Fri Dec 16 12:49:27 2022
 
 @author: ozgesurer
 """
+
+
 from scoreCARTprune import scoreCART
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -18,7 +20,7 @@ def column(matrix, i):
     return [row[i] for row in matrix]
 
 # directory = "/home/sshasha2/"
-data_title = 'yield'
+data_title = 'matt'
 datafile = "data/test_"+data_title+".txt"
 # log_file = open(directory+"log_"+data_title+"_"+params+".txt", 'a+')
         
@@ -104,7 +106,7 @@ def OneRep(k):
     dfres = pd.DataFrame(dictable)
     name = str(k) +'.txt'
     
-    with open(r'rep' + str(k) + '.txt', 'w') as fp:
+    with open(r'res_wind/rep' + str(k) + '.txt', 'w') as fp:
         fp.writelines(str(dfres.values))
     return dfres
 

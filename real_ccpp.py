@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Nov 15 21:54:22 2022
+Created on Fri Dec 16 12:28:11 2022
 
 @author: ozgesurer
 """
+
 from scoreCARTprune import scoreCART
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -18,7 +19,7 @@ def column(matrix, i):
     return [row[i] for row in matrix]
 
 # directory = "/home/sshasha2/"
-data_title = 'yield'
+data_title = 'ccpp'
 datafile = "data/test_"+data_title+".txt"
 # log_file = open(directory+"log_"+data_title+"_"+params+".txt", 'a+')
         
@@ -30,7 +31,7 @@ for i in range(len(rows)):
 
 
 random.seed(0)       
-test_index = list(random.sample(range(len(rows)), 10000))
+test_index = list(random.sample(range(len(rows)), 3000))
 rem_index = list(set(range(len(rows))) - set(test_index))
 rem_set = [rows[index] for index in rem_index]    
 test_set_fix = [rows[index] for index in test_index]
@@ -42,12 +43,12 @@ num_quantiles = 20
 total_reps = 5#30 
 alpha = .2
 tol = 0
-n = 100 # 5000, 10000
+n = 100 # 3000, 6000
 
     
 def OneRep(k):
     random.seed(k)  
-    tr_set = random.sample(rem_set, 10000)[0:n]
+    tr_set = random.sample(rem_set, 6000)[0:n]
     dataset = [tr_set, test_set_fix]
     
     is_cat = []
