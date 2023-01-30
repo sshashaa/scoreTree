@@ -44,11 +44,29 @@ def accuracy_crps(leaf_dict, args):
         for j, leaf_point_q in enumerate(xv):
             s = 0.0
             for i, leaf_point in enumerate(x):
-                s += abs(leaf_point_q-leaf_point)*r[i]
+                s += abs(leaf_point_q-leaf_point)/len(leaf)*r[i]
             crps_1 += s*rv[j]        
-        total_crps += crps_1/len(leaf) - crps_2*len(val)
+        total_crps += crps_1 - crps_2*len(val)
     return total_crps
 
+def accuracy_crpsnew(leaf_dict, args):  
+    total_crps = 0    ## crps old with freq  -- this is correct
+    for key, val in leaf_dict.items(): # key is X and val is y
+        ## key is not sorted, sort first:
+        leaf = sorted(ast.literal_eval(key))
+        leaf_ytrain = list(Counter(leaf).keys())
+        leaf_ytrain_freq = list(Counter(leaf).values())
+        
+        ## val is already sorted:
+        leaf_ytest = sorted(list(Counter(val).keys()))
+        leaf_ytest_freq = sorted(list(Counter(val).values()))
+        
+        for j, y in enumerate(leaf_ytest):
+            crps_y = 0.0
+            for i, x in enumerate(leaf_ytrain):
+                crps_y += 2*(x-y)*(len(leaf_ytrain)*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]/(len(leaf_ytrain)*len(leaf_ytrain))
+            total_crps += crps_y*leaf_ytest_freq[j]
+    return total_crps
 
 def accuracy_dss(leaf_dict, args):  
     total_dss = 0
