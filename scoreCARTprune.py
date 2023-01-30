@@ -221,6 +221,14 @@ class scoreCART():
         args = {}
         args['alpha'] = self.alpha
         
+        # sort data once (sort x based on y, then sort y)
+        xtest = [xtest for _, xtest in sorted(zip(ytest, xtest))]
+        ytest = sorted(ytest)
+        
+        xtrain = [xtrain for _, xtrain in sorted(zip(ytrain, xtrain))]
+        ytrain = sorted(ytrain)
+        
+        
         # predictions show the leaf id falling
         predictions = self.tree_preds(xtest)
         predictions_in = self.tree_preds(xtrain)
