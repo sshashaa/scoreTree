@@ -181,8 +181,8 @@ class scoreCART():
         self.initialscore = root['score']
         self.initialimpr = root['improvement']
         self.split(root, 1)
-        print("tree_method " + self.method + "\n###########################")
-        self.print_tree(root, depth=0)
+        #print("tree_method " + self.method + "\n###########################")
+        #self.print_tree(root, depth=0)
         self.fittedtree = root
         
     # All the functions below for evalution
@@ -248,9 +248,9 @@ class scoreCART():
             self.accuracy_func = eval('accuracy_' + eval_method)
 
             eval_new = [self.accuracy_func(leaf_dict, args)]
-            print(eval_new)
+            #print(eval_new)
             eval_new += [self.accuracy_func(leaf_dict_in, args)]
-            print(eval_new)
+            #print(eval_new)
             evals_dict[eval_method] = eval_new
             
         return evals_dict

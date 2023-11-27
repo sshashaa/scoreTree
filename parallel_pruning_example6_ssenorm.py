@@ -5,7 +5,8 @@ Created on Tue Mar  8 14:06:28 2022
 
 @author: ozgesurer
 """
-
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE, SIG_DFL)
 from scoreCARTprune import scoreCART
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -25,7 +26,7 @@ num_quantiles = 20
 total_reps = 30 
 alpha = .2
 tol = 0
-n = 1600
+n = 200
 
 filename = 'synth6' + '_n_' + str(n)
 
@@ -124,7 +125,7 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Test' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
-plt.savefig('less_noise_examples/test_' + filename + '.png')
+#plt.savefig('less_noise_examples/test_' + filename + '.png')
 plt.show()
         
 fig, axes = plt.subplots(len(metrics), len(prune_thr_list), sharex=True, figsize=(25, 25))
@@ -138,7 +139,7 @@ for metric_id, met in enumerate(metrics):
             axes[metric_id, th_id].set_ylabel('Train' + ' (' + met + ')')
         if metric_id == 0:
             axes[metric_id, th_id].set_title('Threshold: ' + str(th))
-plt.savefig('less_noise_examples/train_' + filename + '.png')
+#plt.savefig('less_noise_examples/train_' + filename + '.png')
 plt.show()
 
-df_scores.to_csv('less_noise_examples/' + filename + '.csv', sep=',')
+#df_scores.to_csv('less_noise_examples/' + filename + '.csv', sep=',')
