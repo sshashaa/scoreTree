@@ -9,7 +9,7 @@ Created on Tue Feb 15 17:28:52 2022
 '''
 Creates the figure in the paper
 '''
-from scoreCART import scoreCART
+from scoreCARTprune import scoreCART
 from random import sample
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -21,7 +21,7 @@ def sse_for_new_split(groups):
         mean_target = sum([row[-1] for row in group])/float(len(group))
         sse += sum([pow(row[-1]-mean_target,2) for row in group])
     return sse
-
+import time
 def crps_for_new_split(groups):
     total_crps = 0          
 
@@ -29,16 +29,41 @@ def crps_for_new_split(groups):
         targets = np.asarray([row[-1] for row in group])            
         x = list(Counter(targets).keys())
         r = list(Counter(targets).values())
-        
+
         crps_2 = 0.0
         for j, leaf_point_q in enumerate(x):
             s = 0.0
             for i, leaf_point in enumerate(x):
                 s += abs(leaf_point_q-leaf_point)*r[i]
+      
             crps_2 += s*r[j]            
         total_crps += crps_2/(2*len(targets))
 
+
     return total_crps  
+
+
+def crpsnew_for_new_split(groups):
+    total_crps = 0          
+
+    for group in groups:
+        targets = sorted(list(np.asarray([row[-1] for row in group])))        
+        leaf_ytrain = list(Counter(targets).keys())
+        leaf_ytrain_freq = list(Counter(targets).values())
+
+        nlength = len(leaf_ytrain)
+        denum   = (2/(nlength*nlength))
+        idlist  = np.arange(1, nlength + 1)
+        
+        total_crps += denum*sum([sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)*leaf_ytrain_freq[j] for j, y in enumerate(leaf_ytrain)])
+        #for j, y in enumerate(leaf_ytrain):
+            # crps_y = 0.0
+        #    crps_y = sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)
+            # for i, x in enumerate(leaf_ytrain):
+            # crps_y = sum([2*(x-y)*(nlenght*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i] for i, x in enumerate(leaf_ytrain)])
+                #crps_y += 2*(x-y)*(nlenght*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]#/(len(leaf_ytrain)*len(leaf_ytrain))
+       #     total_crps += crps_y*denum*leaf_ytrain_freq[j]
+    return total_crps
 
 def column(matrix, i):
     return [row[i] for row in matrix]
@@ -72,6 +97,9 @@ x_dim = len(rows[0])-1
 #### #### #### #### #### #### ####
 # Creta the figure in the paper #
 #### #### #### #### #### #### ####
+
+start = time.time()
+
 slist = np.arange(-99, 99)/100
 sselist = []
 crpslist = []
@@ -90,11 +118,14 @@ for s in slist:
     groups.append(right)
     
     sse = sse_for_new_split(groups)
-    crps = crps_for_new_split(groups)
+    crps = crpsnew_for_new_split(groups)
     
     sselist.append(sse)
     crpslist.append(crps)
-    
+
+end = time.time()
+print(end - start) 
+
 fig, axs = plt.subplots(2, 1, figsize=(6, 10))
 axs[0].plot(slist, sselist, color='red')
 axs[0].set_xlabel(r'$s$')
@@ -141,7 +172,7 @@ for row in dataset[0]:
 actual = [row[-1] for row in dataset[1]]
 actual_in = [row[-1] for row in dataset[0]]
 
-methods = ["crps", "dss", "is1", "sse"]
+methods = ["crpsnew"]
 
 for m in methods: 
     # Fit the tree model
@@ -152,6 +183,7 @@ for m in methods:
                           min_node_size, 
                           num_quantiles, 
                           alpha,
+                          0,
                           args = {'is_cat': is_cat, 'cov_uniqvals': cov_uniqvals})
     CARTmodel.build_tree()
     fittedtree = CARTmodel.fittedtree
@@ -160,4 +192,4 @@ for m in methods:
                                        actual, 
                                        self_test, 
                                        actual_in, 
-                                       metrics=['sse', 'crps', 'dss', 'is1'])
+                                       metrics=['sse', 'crpsnew', 'dss', 'is1'])

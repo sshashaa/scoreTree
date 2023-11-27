@@ -7,8 +7,8 @@ Created on Tue Mar  8 11:37:37 2022
 """
 #breakpoint()
 import numpy as np
-from newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split
-from accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1
+from newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split, crpsnew_for_new_split
+from accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1, accuracy_crpsnew
 import copy
 
 class scoreCART():

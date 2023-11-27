@@ -57,21 +57,34 @@ def crpsnew_for_new_split(groups, notparent, args):
             leaf_ytrain = list(Counter(targets).keys())
             leaf_ytrain_freq = list(Counter(targets).values())
             
-            for j, y in enumerate(leaf_ytrain):
-                crps_y = 0.0
-                for i, x in enumerate(leaf_ytrain):
-                    crps_y += 2*(x-y)*(len(leaf_ytrain)*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]/(len(leaf_ytrain)*len(leaf_ytrain))
-                total_crps += crps_y*leaf_ytrain_freq[j]
+            nlength = len(leaf_ytrain)
+            denum   = (2/(nlength*nlength))
+            idlist  = np.arange(1, nlength + 1)
+     
+            total_crps += denum*sum([sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)*leaf_ytrain_freq[j] for j, y in enumerate(leaf_ytrain)])
+            
+            #for j, y in enumerate(leaf_ytrain):
+            #    crps_y = 0.0
+            #    for i, x in enumerate(leaf_ytrain):
+            #        crps_y += 2*(x-y)*(len(leaf_ytrain)*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]/(len(leaf_ytrain)*len(leaf_ytrain))
+            #    total_crps += crps_y*leaf_ytrain_freq[j]
     else:
         targets = sorted(list(np.asarray([row[-1] for row in groups])))
         leaf_ytrain = list(Counter(targets).keys())
         leaf_ytrain_freq = list(Counter(targets).values())
         
-        for j, y in enumerate(leaf_ytrain):
-            crps_y = 0.0
-            for i, x in enumerate(leaf_ytrain):
-                crps_y += 2*(x-y)*(len(leaf_ytrain)*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]/(len(leaf_ytrain)*len(leaf_ytrain))
-            total_crps += crps_y*leaf_ytrain_freq[j]
+        nlength = len(leaf_ytrain)
+        denum   = (2/(nlength*nlength))
+        idlist  = np.arange(1, nlength + 1)
+            
+        total_crps += denum*sum([sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)*leaf_ytrain_freq[j] for j, y in enumerate(leaf_ytrain)])
+            
+            
+        #for j, y in enumerate(leaf_ytrain):
+        #    crps_y = 0.0
+        #    for i, x in enumerate(leaf_ytrain):
+        #        crps_y += 2*(x-y)*(len(leaf_ytrain)*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]/(len(leaf_ytrain)*len(leaf_ytrain))
+        #    total_crps += crps_y*leaf_ytrain_freq[j]
     return total_crps  
 
 
