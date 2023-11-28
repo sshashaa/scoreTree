@@ -4,7 +4,7 @@ import numpy
 
 
 setup(
-    name="scoreCARD",
+    name="scoreCART",
     version="0.1.0",
     author="Blinded Authors",
     description="Building Trees for Probabilistic Prediction via Scoring Rules",
@@ -18,9 +18,6 @@ setup(
     install_requires=[
         "pandas",
         "matplotlib",
-        "libensemble==0.9.1",
-        "torch",
-        "scikit-learn",
     ],
     include_dirs=[numpy.get_include()],
 )

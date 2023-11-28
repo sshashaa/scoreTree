@@ -1,7 +1,7 @@
 '''
 Creates the figure for the toy example in the paper
 '''
-from scoreCARTprune import scoreCART
+from scoreCART.scoreCARTprune import scoreCART
 from random import sample
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -63,7 +63,7 @@ def column(matrix, i):
 
 # 19, 22, 24, 34
 
-for seed in [31, 32, 33, 34, 35, 36, 37, 38, 39, 40]:
+for seed in [19]:
     np.random.seed(seed)
     
     def synthetic1(n):

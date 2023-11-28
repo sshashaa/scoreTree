@@ -1,10 +1,9 @@
-from scoreCARTprune import scoreCART
+from scoreCART.scoreCARTprune import scoreCART
 import numpy as np
 import matplotlib.pyplot as plt 
 import pandas as pd
 from joblib import Parallel, delayed
 import random
-import seaborn as sns
 
 
 def column(matrix, i):
@@ -21,7 +20,7 @@ tol = 0
 
 def OneRep(k, n):
     # random.seed(k + 10)
-    filename = 'less_noise_examples/synth6_rep_' + str(k) + '.csv'
+    filename = 'less_noise_examples/synth7_rep_' + str(k) + '.csv'
     rows = pd.read_csv(filename, header=None)
     rows = rows.values.tolist()[0:n]
     is_cat = []
@@ -35,7 +34,7 @@ def OneRep(k, n):
         else:
             is_cat += [0]
 
-    filename = 'less_noise_examples/synth6_test' + '.csv'
+    filename = 'less_noise_examples/synth7_test' + '.csv'
     rows_test = pd.read_csv(filename, header=None)
     rows_test = rows_test.values.tolist()
 
@@ -85,13 +84,14 @@ def OneRep(k, n):
     return dfres
 
 score_list = []
-for n in [200, 400, 800, 1600]:
+nlist = [200, 400, 800, 1600]
+for n in nlist:
     # Run parallel for each replicate
     scores_reps = Parallel(n_jobs=min(total_reps, 20))(delayed(OneRep)(rep_no, n) for rep_no in range(total_reps))   
     score_list.append(scores_reps)
 
 liste = []    
-for nid in range(0, 4):
+for nid in range(0, len(nlist)):
     scores_reps = score_list[nid]
     for i in range(total_reps):
         ls = scores_reps[i].copy()
@@ -99,19 +99,17 @@ for nid in range(0, 4):
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-n = [200, 400, 800, 1600]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
+table1 = []
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 plt.rcParams['xtick.labelsize'] = 14 
 for mid, m in enumerate(methods):
     axes[mid].set_title(m, fontsize=14)
     frac = []
-    for nid, ns in enumerate(n):
-        #filename = 'less_noise_examples/synth' + str(i) + '_n_' + str(ns) + '.csv'
-        #df_scores = pd.read_csv(filename)
-        
+    for nid, ns in enumerate(nlist):
+
         Test_score = []
         
         for r in prune_thr_list:
@@ -124,22 +122,28 @@ for mid, m in enumerate(methods):
     
         dt = pd.DataFrame(Test_score)
 
-        print(dt)
+        # print(dt)
         idm = np.argmin(dt[dt['Method'] == m]['Score'])
         idsse = np.argmin(dt[dt['Method'] == 'sse']['Score'])
         
         idm = dt[dt['Method'] == m]['Score'].idxmin()
         idsse = dt[dt['Method'] == 'sse']['Score'].idxmin()
         
-    
-        print('n:', ns)
-        print('Method:', m)
-        print(idm)
-        print('Thr:', dt.iloc[idm]['Threshold'])
+        tab1 = {'Method': m, 'Threshold': dt.iloc[idm]['Threshold'], 'n': ns}
+        table1.append(tab1)
+        
+        if m == 'crps':
+            tab1 = {'Method': 'sse', 'Threshold': dt.iloc[idsse]['Threshold'], 'n': ns}
+            table1.append(tab1)
+            
+        # print('n:', ns)
+        # print('Method:', m)
+        # print(idm)
+        # print('Thr:', dt.iloc[idm]['Threshold'])
 
-        print('Method:', 'sse')
-        print(idsse)
-        print('Thr:', dt.iloc[idsse]['Threshold'])
+        # print('Method:', 'sse')
+        # print(idsse)
+        # print('Thr:', dt.iloc[idsse]['Threshold'])
                 
         df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idm]['Threshold']) & (df_scores['n'] == ns)]
         df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idsse]['Threshold']) & (df_scores['n'] == ns)]
@@ -168,4 +172,42 @@ axes[1].set_ylim(-0.5, 3.5)
 axes[2].set_ylim(-0.5, 3.5)
 plt.show()
 
+# Generate Figure 2
+figure2 = df_scores[(df_scores['Method'].isin(['crps', 'sse'])) & (df_scores['Metric'] == 'crps') & (df_scores['Threshold'].isin([0, 0.5]))]
+figure2sse = df_scores[(df_scores['Method'].isin(['sse'])) & (df_scores['Metric'] == 'crps') & (df_scores['Threshold'].isin([0, 0.5]))]
+figure2crps = df_scores[(df_scores['Method'].isin(['crps'])) & (df_scores['Metric'] == 'crps') & (df_scores['Threshold'].isin([0, 0.5]))]
+ft = 20
+fig2sse = figure2sse[['Test', 'Train', 'Threshold', 'n', 'Rep']]
+fig2crps = figure2crps[['Test', 'Train', 'Threshold', 'n', 'Rep']]
+fig2crps['Test'] = np.array(fig2crps['Test']) - np.array(fig2sse['Test']) 
+import seaborn as sns
+fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+fig2 = sns.boxplot(x='n', y='Test', 
+            hue='Threshold', palette=sns.color_palette(('blue', 'red')), 
+            data=fig2crps)
+fig2.set_title('CRPS(CRPS tree) - CRPS(SSE tree)', fontsize=ft)
+fig2.set(ylabel=None)
+fig2.set_xlabel('data size', fontsize=ft)
+fig2.tick_params(axis='both', which='major', labelsize=ft)
+fig2.legend(title='Pruning threshold', fontsize=ft)
+plt.setp(ax.get_legend().get_title(), fontsize=ft) 
+plt.show()
+
+# Generate Table 1
+table1 = pd.DataFrame(table1)
+methods = ['sse', 'crps', 'dss', 'is1']
+print("Table 1: The optimal pruning for each scoring rule and size (hard dataset)")
+print("     " + str(nlist))
+for m in methods:
+    vals = np.array(table1[(table1['Method'] == m)]['Threshold'])
+    print(m + "   " , end="")
+    for v in vals:
+        print(str(v) + "  ", end="") 
+    print("\n")
+    
+    
+    
+#import sys
+#sys.path.append("/Users/ozgesurer/Desktop/GithubRepos/CART-with-scoring")
+#sys.path.append("/Users/ozgesurer/Desktop/GithubRepos/CART-with-scoring/scoreCART")
 
