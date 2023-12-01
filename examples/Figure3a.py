@@ -98,7 +98,7 @@ for nid in range(0, 4):
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-n = [200, 400, 800, 1600]
+n = [200, 400, 800]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
 

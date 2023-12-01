@@ -18,6 +18,7 @@ setup(
     install_requires=[
         "pandas",
         "matplotlib",
+        "scipy",
     ],
     include_dirs=[numpy.get_include()],
 )
