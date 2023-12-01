@@ -81,6 +81,8 @@ class scoreCART():
                         first_val = 1
                         if b_score < measure:
                             print("monotonicity violated - " + str(self.method) + " - variable "+str(index))
+                            print(b_score)
+                            print(measure)
                             # log_file.write("monotonicity violated - "+ str(self.method) + " - variable "+str(val))
                         b_score = max(b_score, measure)
                     if split_occurs:

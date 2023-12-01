@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb  3 17:36:22 2022
-
-@author: ozgesurer
-"""
 import numpy as np
 from collections import Counter
 #  SSE of a a new splitted point; if nonparent it is two nodes (left, right)

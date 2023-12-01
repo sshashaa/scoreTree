@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb  8 20:49:13 2022
-
-@author: ozgesurer
-"""
 import ast
 import numpy as np
 from collections import Counter

@@ -78,19 +78,23 @@ def OneRep(k, n):
                                                actual_in, 
                                                metrics=['sse', 'crps', 'dss', 'is1'])
             for metr in ['sse', 'crps', 'dss', 'is1']:
-                d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][1], 2), 'Test': np.round(dict_eval[metr][0], 2), 'Threshold': pr, 'n': n}
+                d = {'Method': m, 'Metric': metr, 
+                     'Train': np.round(dict_eval[metr][1], 2), 
+                     'Test': np.round(dict_eval[metr][0], 2), 
+                     'Threshold': pr, 'n': n}
                 dictable.append(d)
     dfres = pd.DataFrame(dictable)
     return dfres
 
 score_list = []
-for n in [200, 400, 800, 1600]:
+n_list = [200, 400, 800, 1600]
+for n in n_list:
     # Run parallel for each replicate
     scores_reps = Parallel(n_jobs=min(total_reps, 20))(delayed(OneRep)(rep_no, n) for rep_no in range(total_reps))   
     score_list.append(scores_reps)
 
 liste = []    
-for nid in range(0, 4):
+for nid in range(0, len(n_list)):
     scores_reps = score_list[nid]
     for i in range(total_reps):
         ls = scores_reps[i].copy()
@@ -98,7 +102,6 @@ for nid in range(0, 4):
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-n = [200, 400, 800]
 methods = ['crps', 'dss', 'is1']
 prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
 
@@ -107,10 +110,8 @@ plt.rcParams['xtick.labelsize'] = 14
 for mid, m in enumerate(methods):
     axes[mid].set_title(m, fontsize=14)
     frac = []
-    for nid, ns in enumerate(n):
-        #filename = 'less_noise_examples/synth' + str(i) + '_n_' + str(ns) + '.csv'
-        #df_scores = pd.read_csv(filename)
-        
+    for nid, ns in enumerate(n_list):
+
         Test_score = []
         
         for r in prune_thr_list:
@@ -123,22 +124,12 @@ for mid, m in enumerate(methods):
     
         dt = pd.DataFrame(Test_score)
 
-        print(dt)
         idm = np.argmin(dt[dt['Method'] == m]['Score'])
         idsse = np.argmin(dt[dt['Method'] == 'sse']['Score'])
         
         idm = dt[dt['Method'] == m]['Score'].idxmin()
         idsse = dt[dt['Method'] == 'sse']['Score'].idxmin()
-        
     
-        print('n:', ns)
-        print('Method:', m)
-        print(idm)
-        print('Thr:', dt.iloc[idm]['Threshold'])
-
-        print('Method:', 'sse')
-        print(idsse)
-        print('Thr:', dt.iloc[idsse]['Threshold'])
                 
         df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idm]['Threshold']) & (df_scores['n'] == ns)]
         df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idsse]['Threshold']) & (df_scores['n'] == ns)]
@@ -150,8 +141,8 @@ for mid, m in enumerate(methods):
 
         axes[mid].scatter((np.mean(np.array(df1['Test']) - np.array(df2['Test']))), [nid])
         axes[mid].errorbar(y=[nid], x=(np.mean(diff)), 
-                           xerr=[1.96*np.std(diff)/np.sqrt(30)],
-                           capsize=4, label='both limits (default)')
+                            xerr=[1.96*np.std(diff)/np.sqrt(30)],
+                            capsize=4, label='both limits (default)')
         
         axes[mid].text(np.mean(diff)-np.std(diff)/np.sqrt(30), nid + 0.1, str(frac[nid]) + '%', fontsize=14)
     axes[mid].axvline(0, color='black', linewidth=2)
@@ -165,6 +156,7 @@ axes[2].set_yticks([])
 axes[0].set_ylim(-0.5, 3.5)
 axes[1].set_ylim(-0.5, 3.5)
 axes[2].set_ylim(-0.5, 3.5)
-plt.show()
+plt.savefig("Figure3easy.png", bbox_inches="tight")
+plt.close()
 
 
