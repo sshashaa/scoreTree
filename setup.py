@@ -19,6 +19,8 @@ setup(
         "pandas",
         "matplotlib",
         "scipy",
+        "seaborn",
+        "joblib",
     ],
     include_dirs=[numpy.get_include()],
 )

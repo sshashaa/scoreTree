@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul  4 15:25:21 2022
-
-@author: ozgesurer
-"""
 import csv
 from scoreCARTprune import scoreCART
 import numpy as np

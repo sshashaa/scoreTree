@@ -74,10 +74,19 @@ Instructions are provided to replicate Figure~3.
 Execute the following from the command line::
 
   python3 Figure3a.py
-  python3 Figure3b.py
  
 Running this script takes about 2.5hrs on a personal Mac laptop. 
 Once completed, ``Figure3_easy.png`` is saved under ``examples/`` directory.
+Moreover, Table~2 (easy dataset) is printed to the screen.
+
+Execute the following from the command line::
+
+  python3 Figure3b.py
+ 
+Running this script takes about 2.5hrs on a personal Mac laptop. 
+Once completed, ``Figure3_hard.png`` is saved under ``examples/`` directory.
+Moreover, Table~2 (hard dataset) is printed to the screen. Finally, 
+``Figure2.png`` is saved under ``examples/`` directory. 
   
 Final comments
 ~~~~~~~~~~~~~~

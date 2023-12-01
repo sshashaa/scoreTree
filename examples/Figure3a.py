@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from joblib import Parallel, delayed
 import random
+from utils import plot_paperfig
 
 
 def column(matrix, i):
@@ -102,61 +103,17 @@ for nid in range(0, len(n_list)):
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-methods = ['crps', 'dss', 'is1']
-prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
+table1 = plot_paperfig(df_scores, "Figure3easy.png")
 
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-plt.rcParams['xtick.labelsize'] = 14 
-for mid, m in enumerate(methods):
-    axes[mid].set_title(m, fontsize=14)
-    frac = []
-    for nid, ns in enumerate(n_list):
-
-        Test_score = []
-        
-        for r in prune_thr_list:
-            
-            df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == r) & (df_scores['n'] == ns)]
-            Test_score.append({'Score': np.mean(df1['Test']), 'Method': m, 'Threshold': r})
-            
-            df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == 'sse') & (df_scores['Threshold'] == r) & (df_scores['n'] == ns)]
-            Test_score.append({'Score': np.mean(df2['Test']), 'Method': 'sse', 'Threshold': r})
+# Generate Table 2
+table1 = pd.DataFrame(table1)
+methods = ['sse', 'crps', 'dss', 'is1']
+print("Table 1: The optimal pruning for each scoring rule and size (hard dataset)")
+print("     " + str(nlist))
+for m in methods:
+    vals = np.array(table1[(table1['Method'] == m)]['Threshold'])
+    print(m + "   " , end="")
+    for v in vals:
+        print(str(v) + "  ", end="") 
+    print("\n")
     
-        dt = pd.DataFrame(Test_score)
-
-        idm = np.argmin(dt[dt['Method'] == m]['Score'])
-        idsse = np.argmin(dt[dt['Method'] == 'sse']['Score'])
-        
-        idm = dt[dt['Method'] == m]['Score'].idxmin()
-        idsse = dt[dt['Method'] == 'sse']['Score'].idxmin()
-    
-                
-        df1 = df_scores[(df_scores['Method'] == m) & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idm]['Threshold']) & (df_scores['n'] == ns)]
-        df2 = df_scores[(df_scores['Method'] == 'sse') & (df_scores['Metric'] == m) & (df_scores['Threshold'] == dt.iloc[idsse]['Threshold']) & (df_scores['n'] == ns)]
-
-        frac.append(str(100*np.round(np.mean(np.array(df1['Test']) <= np.array(df2['Test'])), 2)))
-        
-        
-        diff = np.array(df1['Test']) - np.array(df2['Test'])
-
-        axes[mid].scatter((np.mean(np.array(df1['Test']) - np.array(df2['Test']))), [nid])
-        axes[mid].errorbar(y=[nid], x=(np.mean(diff)), 
-                            xerr=[1.96*np.std(diff)/np.sqrt(30)],
-                            capsize=4, label='both limits (default)')
-        
-        axes[mid].text(np.mean(diff)-np.std(diff)/np.sqrt(30), nid + 0.1, str(frac[nid]) + '%', fontsize=14)
-    axes[mid].axvline(0, color='black', linewidth=2)
-
-
-axes[0].set_yticks([0,1,2,3])
-axes[0].set_yticklabels(['200', '400', '800', '1600'], fontsize=16)
-axes[0].set_ylabel('n', fontsize=16)
-axes[1].set_yticks([])
-axes[2].set_yticks([])
-axes[0].set_ylim(-0.5, 3.5)
-axes[1].set_ylim(-0.5, 3.5)
-axes[2].set_ylim(-0.5, 3.5)
-plt.savefig("Figure3easy.png", bbox_inches="tight")
-plt.close()
-
-

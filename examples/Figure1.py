@@ -126,7 +126,8 @@ for seed in [19]:
     axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
     plt.xticks(fontsize=20)
     plt.yticks([])
-    plt.show()
+    plt.savefig('Figure1_SSE_a.png', bbox_inches="tight")
+    plt.close()
     
     fig, axs = plt.subplots(1, 1, figsize=(5, 5))
     axs.plot(slist, crpslist, color='green')
@@ -135,7 +136,8 @@ for seed in [19]:
     axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
     plt.xticks(fontsize=ft)
     plt.yticks([])
-    plt.show()
+    plt.savefig('Figure1_CRPS_a.png', bbox_inches="tight")
+    plt.close()
     
     argmin_sse = np.argmin(sselist)
     argmin_crps = np.argmin(crpslist)
@@ -170,7 +172,11 @@ for seed in [19]:
         if sid == 0:
             plt.title(r'$x \leq s^{\rm SSE}$', fontsize=ft)
         plt.xticks(fontsize=ft)
-        plt.show()
+        if sid == 0:
+            plt.savefig("Figure1_SSE_b.png", bbox_inches="tight")
+        elif sid == 1:
+            plt.savefig("Figure1_CRPS_b.png", bbox_inches="tight")
+        plt.close()
         
         plt.hist(data2, num_bins, facecolor=col, alpha=1, density=True, ec='white')
         plt.plot(yaxvals, pdfexp, color='black')
@@ -182,4 +188,8 @@ for seed in [19]:
         if sid == 0:
             plt.title(r'$x > s^{\rm SSE}$', fontsize=ft)
         plt.xticks(fontsize=ft)
-        plt.show()
+        if sid == 0:
+            plt.savefig("Figure1_SSE_c.png", bbox_inches="tight")
+        elif sid == 1:
+            plt.savefig("Figure1_CRPS_c.png", bbox_inches="tight")
+        plt.close()

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 28 20:09:23 2022
-
-@author: ozgesurer
-"""
-
 from scoreCART import scoreCART
 from random import sample
 import numpy as np
