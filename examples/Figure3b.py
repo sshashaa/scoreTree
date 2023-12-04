@@ -101,7 +101,7 @@ for nid in range(0, len(nlist)):
 df_scores = pd.concat(liste)
 
 # Generage Figure 3
-table1 = plot_paperfig(df_scores, "Figure3hard.png")
+table1 = plot_paperfig(df_scores, "Figures/Figure3hard.png")
 
 # Generate Figure 2
 figure2 = df_scores[(df_scores['Method'].isin(['crps', 'sse'])) & (df_scores['Metric'] == 'crps') & (df_scores['Threshold'].isin([0, 0.5]))]
@@ -122,7 +122,7 @@ fig2.set_xlabel('data size', fontsize=ft)
 fig2.tick_params(axis='both', which='major', labelsize=ft)
 fig2.legend(title='Pruning threshold', fontsize=ft)
 plt.setp(ax.get_legend().get_title(), fontsize=ft) 
-plt.savefig("Figure2.png", bbox_inches="tight")
+plt.savefig("Figures/Figure2.png", bbox_inches="tight")
 plt.close()
 
 # Generate Table 2

@@ -88,14 +88,14 @@ def OneRep(k, n):
     return dfres
 
 score_list = []
-n_list = [200, 400, 800, 1600]
-for n in n_list:
+nlist = [200, 400, 800, 1600]
+for n in nlist:
     # Run parallel for each replicate
     scores_reps = Parallel(n_jobs=min(total_reps, 20))(delayed(OneRep)(rep_no, n) for rep_no in range(total_reps))   
     score_list.append(scores_reps)
 
 liste = []    
-for nid in range(0, len(n_list)):
+for nid in range(0, len(nlist)):
     scores_reps = score_list[nid]
     for i in range(total_reps):
         ls = scores_reps[i].copy()
@@ -103,7 +103,7 @@ for nid in range(0, len(n_list)):
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-table1 = plot_paperfig(df_scores, "Figure3easy.png")
+table1 = plot_paperfig(df_scores, "Figures/Figure3easy.png")
 
 # Generate Table 2
 table1 = pd.DataFrame(table1)

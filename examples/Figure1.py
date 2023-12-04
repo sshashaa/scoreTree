@@ -15,28 +15,8 @@ def sse_for_new_split(groups):
         sse += sum([pow(row[-1]-mean_target,2) for row in group])
     return sse
 
+
 def crps_for_new_split(groups):
-    total_crps = 0          
-
-    for group in groups:
-        targets = np.asarray([row[-1] for row in group])            
-        x = list(Counter(targets).keys())
-        r = list(Counter(targets).values())
-
-        crps_2 = 0.0
-        for j, leaf_point_q in enumerate(x):
-            s = 0.0
-            for i, leaf_point in enumerate(x):
-                s += abs(leaf_point_q-leaf_point)*r[i]
-      
-            crps_2 += s*r[j]            
-        total_crps += crps_2/(2*len(targets))
-
-
-    return total_crps  
-
-
-def crpsnew_for_new_split(groups):
     total_crps = 0          
 
     for group in groups:
@@ -49,13 +29,6 @@ def crpsnew_for_new_split(groups):
         idlist  = np.arange(1, nlength + 1)
         
         total_crps += denum*sum([sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)*leaf_ytrain_freq[j] for j, y in enumerate(leaf_ytrain)])
-        #for j, y in enumerate(leaf_ytrain):
-            # crps_y = 0.0
-        #    crps_y = sum((leaf_ytrain - y) * (nlength * (leaf_ytrain > y) - idlist + 0.5) * leaf_ytrain_freq)
-            # for i, x in enumerate(leaf_ytrain):
-            # crps_y = sum([2*(x-y)*(nlenght*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i] for i, x in enumerate(leaf_ytrain)])
-                #crps_y += 2*(x-y)*(nlenght*(x>y)-(i+1)+0.5)*leaf_ytrain_freq[i]#/(len(leaf_ytrain)*len(leaf_ytrain))
-       #     total_crps += crps_y*denum*leaf_ytrain_freq[j]
     return total_crps
 
 def column(matrix, i):
@@ -126,7 +99,7 @@ for seed in [19]:
     axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
     plt.xticks(fontsize=20)
     plt.yticks([])
-    plt.savefig('Figure1_SSE_a.png', bbox_inches="tight")
+    plt.savefig('Figures/Figure1_SSE_a.png', bbox_inches="tight")
     plt.close()
     
     fig, axs = plt.subplots(1, 1, figsize=(5, 5))
@@ -136,7 +109,7 @@ for seed in [19]:
     axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
     plt.xticks(fontsize=ft)
     plt.yticks([])
-    plt.savefig('Figure1_CRPS_a.png', bbox_inches="tight")
+    plt.savefig('Figures/Figure1_CRPS_a.png', bbox_inches="tight")
     plt.close()
     
     argmin_sse = np.argmin(sselist)
@@ -173,9 +146,9 @@ for seed in [19]:
             plt.title(r'$x \leq s^{\rm SSE}$', fontsize=ft)
         plt.xticks(fontsize=ft)
         if sid == 0:
-            plt.savefig("Figure1_SSE_b.png", bbox_inches="tight")
+            plt.savefig("Figures/Figure1_SSE_b.png", bbox_inches="tight")
         elif sid == 1:
-            plt.savefig("Figure1_CRPS_b.png", bbox_inches="tight")
+            plt.savefig("Figures/Figure1_CRPS_b.png", bbox_inches="tight")
         plt.close()
         
         plt.hist(data2, num_bins, facecolor=col, alpha=1, density=True, ec='white')
@@ -189,7 +162,7 @@ for seed in [19]:
             plt.title(r'$x > s^{\rm SSE}$', fontsize=ft)
         plt.xticks(fontsize=ft)
         if sid == 0:
-            plt.savefig("Figure1_SSE_c.png", bbox_inches="tight")
+            plt.savefig("Figures/Figure1_SSE_c.png", bbox_inches="tight")
         elif sid == 1:
-            plt.savefig("Figure1_CRPS_c.png", bbox_inches="tight")
+            plt.savefig("Figures/Figure1_CRPS_c.png", bbox_inches="tight")
         plt.close()
