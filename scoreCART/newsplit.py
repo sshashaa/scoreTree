@@ -13,7 +13,7 @@ def sse_for_new_split(groups, notparent, args):
         sse = sum([pow(row[-1]-mean_target,2) for row in groups])  
     return sse
 
-def crps_for_new_split(groups, notparent, args):
+def crpsold_for_new_split(groups, notparent, args):
     total_crps = 0          
     if notparent:
         for group in groups:
@@ -42,7 +42,7 @@ def crps_for_new_split(groups, notparent, args):
         total_crps += crps_2/(2*len(targets))
     return total_crps  
 
-def crpsnew_for_new_split(groups, notparent, args):
+def crps_for_new_split(groups, notparent, args):
     total_crps = 0          
     if notparent:
         for group in groups:

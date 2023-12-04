@@ -15,7 +15,7 @@ def accuracy_sse(leaf_dict, args):
             total_sse += pow(point - avg, 2)*rv[j]
     return total_sse
 
-def accuracy_crps(leaf_dict, args):  
+def accuracy_crpsold(leaf_dict, args):  
     total_crps = 0    ## crps old with freq  -- this is correct
     for key, val in leaf_dict.items(): # key is X and val is y
         leaf = ast.literal_eval(key)
@@ -42,7 +42,7 @@ def accuracy_crps(leaf_dict, args):
         total_crps += crps_1 - crps_2*len(val)
     return total_crps
 
-def accuracy_crpsnew(leaf_dict, args):  
+def accuracy_crps(leaf_dict, args):  
     total_crps = 0    ## crps old with freq  -- this is correct
     for key, val in leaf_dict.items(): # key is X and val is y
         ## key is not sorted, sort first:
