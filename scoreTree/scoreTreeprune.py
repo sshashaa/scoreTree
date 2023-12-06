@@ -1,9 +1,9 @@
 import numpy as np
-from scoreCART.newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split
-from scoreCART.accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1
+from scoreTree.newsplit import sse_for_new_split, crps_for_new_split, dss_for_new_split, is1_for_new_split
+from scoreTree.accuracy import accuracy_sse, accuracy_crps, accuracy_dss, accuracy_is1
 import copy
 
-class scoreCART():
+class scoreTree():
     def __init__(self, method, train_set, tol, max_depth, min_node_size, num_quantiles, alpha, prune_thr, args):
 
         self.train_set = train_set
@@ -79,7 +79,7 @@ class scoreCART():
                     measure = self.new_split_funcs(groups, 1, args)
                     if not first_val:
                         first_val = 1
-                        if b_score < measure:
+                        # if b_score < measure:
                             # print("monotonicity violated - " + str(self.method) + " - variable "+str(index))
                             # log_file.write("monotonicity violated - "+ str(self.method) + " - variable "+str(val))
                         b_score = max(b_score, measure)

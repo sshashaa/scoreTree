@@ -4,7 +4,7 @@ import numpy
 
 
 setup(
-    name="scoreCART",
+    name="scoreTree",
     version="0.1.0",
     author="Blinded Authors",
     description="Building Trees for Probabilistic Prediction via Scoring Rules",

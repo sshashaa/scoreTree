@@ -1,4 +1,4 @@
-from scoreCART.scoreCARTprune import scoreCART
+from scoreTree.scoreTreeprune import scoreTree
 import numpy as np
 import matplotlib.pyplot as plt 
 import pandas as pd
@@ -62,7 +62,7 @@ def OneRep(k, n):
     for pr in prune_thr_list:
         for m in methods: 
             # Fit the tree model
-            CARTmodel = scoreCART(m, 
+            CARTmodel = scoreTree(m, 
                                   rows, 
                                   tol, 
                                   max_depth, 

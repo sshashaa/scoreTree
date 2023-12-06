@@ -1,7 +1,7 @@
 '''
 Creates the figure for the toy example in the paper
 '''
-from scoreCART.scoreCARTprune import scoreCART
+from scoreTree.scoreTreeprune import scoreTree
 from random import sample
 import numpy as np
 import matplotlib.pyplot as plt 
