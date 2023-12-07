@@ -92,25 +92,21 @@ for seed in [19]:
         crpslist.append(crps)
     
     ft = 20
-    fig, axs = plt.subplots(1, 1, figsize=(5, 5))
-    axs.plot(slist, sselist, color='darkred')
-    axs.set_xlabel(r'$s$', fontsize=ft)
-    axs.set_ylabel(r'SSE($s$)', fontsize=ft)
-    axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
-    plt.xticks(fontsize=20)
-    plt.yticks([])
-    plt.savefig('Figures/Figure1_SSE_a.png', bbox_inches="tight")
-    plt.close()
+    fig, axs = plt.subplots(2, 3, figsize=(15, 10))
+    axs[0,0].plot(slist, sselist, color='darkred')
+    axs[0,0].set_xlabel(r'$s$', fontsize=ft)
+    axs[0,0].set_ylabel(r'SSE($s$)', fontsize=ft)
+    axs[0,0].set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
+    axs[0,0].xaxis.set_tick_params(labelsize=20)
+    axs[0,0].set_yticks([])
     
-    fig, axs = plt.subplots(1, 1, figsize=(5, 5))
-    axs.plot(slist, crpslist, color='green')
-    axs.set_xlabel(r'$s$', fontsize=ft)
-    axs.set_ylabel(r'CRPS($s$)', fontsize=ft)
-    axs.set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
-    plt.xticks(fontsize=ft)
-    plt.yticks([])
-    plt.savefig('Figures/Figure1_CRPS_a.png', bbox_inches="tight")
-    plt.close()
+    axs[1,0].plot(slist, crpslist, color='green')
+    axs[1,0].set_xlabel(r'$s$', fontsize=ft)
+    axs[1,0].set_ylabel(r'CRPS($s$)', fontsize=ft)
+    axs[1,0].set(xticks=[-1, 0, 1], xticklabels=[-1, 0, 1])
+    axs[1,0].xaxis.set_tick_params(labelsize=20)
+    axs[1,0].set_yticks([])
+
     
     argmin_sse = np.argmin(sselist)
     argmin_crps = np.argmin(crpslist)
@@ -135,34 +131,28 @@ for seed in [19]:
             col = 'green'
         num_bins = 50
     
-        plt.hist(data1, num_bins, facecolor=col, alpha=1, density=True, ec='white')
-        plt.plot(yaxvals, pdfnorm, color='black')
-        plt.ylabel('Frequency/density', fontsize=ft)
-        plt.yticks([])
+        axs[sid,1].hist(data1, num_bins, facecolor=col, alpha=1, density=True, ec='white')
+        axs[sid,1].plot(yaxvals, pdfnorm, color='black')
+        axs[sid,1].set_ylabel('Frequency/density', fontsize=ft)
+        axs[sid,1].set_yticks([])
+        axs[sid,1].xaxis.set_tick_params(labelsize=20)
         if sid == 1:
-            plt.xlabel(r'$y$', fontsize=ft)
-            plt.title(r'$x \leq s^{\rm CRPS}$', fontsize=ft)
+            axs[sid,1].set_xlabel(r'$y$', fontsize=ft)
+            axs[sid,1].set_title(r'$x \leq s^{\rm CRPS}$', fontsize=ft)
         if sid == 0:
-            plt.title(r'$x \leq s^{\rm SSE}$', fontsize=ft)
-        plt.xticks(fontsize=ft)
-        if sid == 0:
-            plt.savefig("Figures/Figure1_SSE_b.png", bbox_inches="tight")
-        elif sid == 1:
-            plt.savefig("Figures/Figure1_CRPS_b.png", bbox_inches="tight")
-        plt.close()
+            axs[sid,1].set_title(r'$x \leq s^{\rm SSE}$', fontsize=ft)
+
         
-        plt.hist(data2, num_bins, facecolor=col, alpha=1, density=True, ec='white')
-        plt.plot(yaxvals, pdfexp, color='black')
-        plt.ylabel('Frequency/density', fontsize=ft)
-        plt.yticks([])
+        axs[sid,2].hist(data2, num_bins, facecolor=col, alpha=1, density=True, ec='white')
+        axs[sid,2].plot(yaxvals, pdfexp, color='black')
+        axs[sid,2].set_ylabel('Frequency/density', fontsize=ft)
+        axs[sid,2].set_yticks([])
+        axs[sid,2].xaxis.set_tick_params(labelsize=20)
         if sid == 1:
-            plt.xlabel(r'$y$', fontsize=ft)
-            plt.title(r'$x > s^{\rm CRPS}$', fontsize=ft)
+            axs[sid,2].set_xlabel(r'$y$', fontsize=ft)
+            axs[sid,2].set_title(r'$x > s^{\rm CRPS}$', fontsize=ft)
         if sid == 0:
-            plt.title(r'$x > s^{\rm SSE}$', fontsize=ft)
-        plt.xticks(fontsize=ft)
-        if sid == 0:
-            plt.savefig("Figures/Figure1_SSE_c.png", bbox_inches="tight")
-        elif sid == 1:
-            plt.savefig("Figures/Figure1_CRPS_c.png", bbox_inches="tight")
-        plt.close()
+            axs[sid,2].set_title(r'$x > s^{\rm SSE}$', fontsize=ft)
+
+    plt.savefig("Figures/Figure1.png", bbox_inches="tight")
+    plt.close()

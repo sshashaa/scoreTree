@@ -116,6 +116,7 @@ fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 fig2 = sns.boxplot(x='n', y='Test', 
             hue='Threshold', palette=sns.color_palette(('blue', 'red')), boxprops=dict(alpha=.7),
             data=fig2crps)
+fig2.axhline(y=0, color='black', linestyle='--', linewidth=3)
 fig2.set_title('CRPS(CRPS tree) - CRPS(SSE tree)', fontsize=ft)
 fig2.set(ylabel=None)
 fig2.set_xlabel('data size', fontsize=ft)

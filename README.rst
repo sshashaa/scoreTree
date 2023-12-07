@@ -1,12 +1,12 @@
 ==================================================================================
-scoreCART: Python package for building trees for probabilistic prediction
+scoreTree: Python package for building trees for probabilistic prediction
 ==================================================================================
 
 
 Dependencies
 ~~~~~~~~~~~~
 
-scoreCART is a Python package for the method introduced in the paper titled 'Building 
+scoreTree is a Python package for the method introduced in the paper titled 'Building 
 Trees for Probabilistic Prediction via Scoring Rules.'
 
 This code requires Python (version 3.6 or later) and pip. 
@@ -16,8 +16,8 @@ Examples under ``examples/`` directory replicate figure 1 and figure 3.
 Set up 
 ~~~~~~
 
-We recommend creating a Python virtual environment within the working directory of scoreCART. 
-If a virtual environment is created, scoreCART's required packages are installed and 
+We recommend creating a Python virtual environment within the working directory of scoreTree. 
+If a virtual environment is created, scoreTree's required packages are installed and 
 isolated from those installed a priori. Creating a virtual environment will also prevent
 having conflicting packages on a user's machine. You may need to install the virtual 
 environment on your system (if a user's system does not have it), for example, 
@@ -93,4 +93,4 @@ Final comments
 
 Type ``deactivate`` from the command line to deactivate the virtual environment if created.
 
-Type ``pip uninstall scoreCART`` from the command line to uninstall the package.
+Type ``pip uninstall scoreTree`` from the command line to uninstall the package.
