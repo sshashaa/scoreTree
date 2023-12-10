@@ -117,3 +117,6 @@ for m in methods:
         print(str(v) + "  ", end="") 
     print("\n")
     
+from utils import plot_papercombinedfig
+
+plot_papercombinedfig(df_scores)
