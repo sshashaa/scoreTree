@@ -56,7 +56,7 @@ def plot_paperfig(df_scores, figlab):
                                capsize=4, label='both limits (default)')
             
             axes[mid].text(np.mean(diff)-np.std(diff)/np.sqrt(30), nid + 0.1, str(frac[nid]) + '%', fontsize=14)
-        axes[mid].axvline(0, color='black', linewidth=2)
+        axes[mid].axvline(0, color='black', linewidth=5)
 
 
     axes[0].set_yticks([0,1,2,3])
@@ -72,17 +72,20 @@ def plot_paperfig(df_scores, figlab):
     
     return table1
 
-def plot_papercombinedfig(df_scores):
+def plot_papercombinedfig(df_scores, is_hard=False):
     methods = ['crps', 'dss', 'is1', 'sse']
     titles = ['CRPS', 'DSS', 'IS1', 'SSE']
     prune_thr_list = [0, 0.1, 0.3, 0.5, 0.8]
     nlist = [200, 400, 800, 1600]
 
-    
+    ft = 20
     table1compare = []
     fig, ax = plt.subplots(4, 4, figsize=(12, 12))
-    fig.suptitle('Eval', y=0.07, fontsize=15)
-    fig.text(0.07, 0.5, 'Build', va='center', rotation='vertical', fontsize=15)
+
+    fig.suptitle('Build', y=0.07, fontsize=ft)
+
+    if is_hard == False:
+        fig.text(0.02, 0.5, 'Eval', va='center', rotation='vertical', fontsize=ft)
     for bid, built in enumerate(methods):
         print('built:', built)
         for mid, evalu in enumerate(methods):
@@ -116,42 +119,55 @@ def plot_papercombinedfig(df_scores):
      
                     diff = np.array(df1['Test']) - np.array(df2['Test'])
                     
-                    frac.append(np.round(100*np.mean(np.array(df1['Test']) > np.array(df2['Test'])), 2))
-                    ax[bid, mid].scatter((np.mean(diff)), [nid], label=ns)
-                    ax[bid, mid].errorbar(y=[nid], x=(np.mean(diff)),
+                    frac.append(np.round(100*np.mean(np.array(df1['Test']) <= np.array(df2['Test']))))
+                    ax[mid, bid].scatter((np.mean(diff)), [nid], color='blue')
+                    ax[mid, bid].errorbar(y=[nid], x=(np.mean(diff)),
                                        xerr=[1.96*np.std(diff)/np.sqrt(30)],
-                                       capsize=4) #label='both limits (default)')
-                    ax[bid, mid].text(np.mean(diff)-np.std(diff)/np.sqrt(30), nid + 0.1, str(frac[nid]) + '%', fontsize=14)
+                                       capsize=4, color='blue') #label='both limits (default)')
+                    ax[mid, bid].text(np.mean(diff)-np.std(diff)/np.sqrt(30), nid + 0.1, str(int(frac[nid])) + '%', fontsize=ft)
                     
-                ax[bid, mid].axvline(0, color='black', linewidth=2)
-                ax[bid, mid].set_ylim(-0.5, 3.5)
-                ax[bid, mid].set_ylim(-0.5, 3.5)
-                ax[bid, mid].set_ylim(-0.5, 3.5)
-                ax[bid, mid].set_yticks([])
+                ax[mid, bid].axvline(0, color='black', linewidth=5)
+                ax[mid, bid].set_ylim(-0.5, 3.5)
+                ax[mid, bid].set_ylim(-0.5, 3.5)
+                ax[mid, bid].set_ylim(-0.5, 3.5)
+                ax[mid, bid].set_yticks([])
             else:
-                ax[bid, mid].set_visible(False)
-    # ax[0, 0].set_yticks([0,1,2,3])
-    # ax[1, 0].set_yticks([0,1,2,3])
-    # ax[2, 0].set_yticks([0,1,2,3])
-    # ax[3, 0].set_yticks([0,1,2,3])
-    # ax[0, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=16)
-    # ax[1, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=16)
-    # ax[2, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=16)
-    # ax[3, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=16)
-    ax[0, 0].set_ylabel('CRPS', fontsize=16)
-    ax[1, 0].set_ylabel('DSS', fontsize=16)
-    ax[2, 0].set_ylabel('IS1', fontsize=16)
-    ax[3, 0].set_ylabel('SSE', fontsize=16)
-    ax[3, 0].set_xlabel('CRPS', fontsize=16)
-    ax[3, 1].set_xlabel('DSS', fontsize=16)
-    ax[3, 2].set_xlabel('IS1', fontsize=16)
-    ax[3, 3].set_xlabel('SSE', fontsize=16)
-    ax[3, 2].legend(bbox_to_anchor=(1.2, -0.5), ncol=4, fontsize=14)
+                ax[mid, bid].spines['top'].set_visible(False)
+                ax[mid, bid].spines['bottom'].set_visible(False)
+                ax[mid, bid].spines['right'].set_visible(False)
+                ax[mid, bid].spines['left'].set_visible(False)
+                ax[mid, bid].tick_params(axis='x', colors='white')
+                ax[mid, bid].tick_params(axis='y', colors='white')
+                #ax[bid, mid].set_visible(False)
+    if is_hard == False:
+        ax[0, 0].set_yticks([0,1,2,3])
+        ax[1, 0].set_yticks([0,1,2,3])
+        ax[2, 0].set_yticks([0,1,2,3])
+        ax[3, 0].set_yticks([0,1,2,3])
+        ax[0, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=14)
+        ax[1, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=14)
+        ax[2, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=14)
+        ax[3, 0].set_yticklabels(['200', '400', '800', '1600'], fontsize=14)
+    if is_hard == False:
+        ax[0, 0].set_ylabel('CRPS', fontsize=ft)
+        ax[1, 0].set_ylabel('DSS', fontsize=ft)
+        ax[2, 0].set_ylabel('IS1', fontsize=ft)
+        ax[3, 0].set_ylabel('SSE', fontsize=ft)
+    ax[3, 0].set_xlabel('CRPS', fontsize=ft)
+    ax[3, 1].set_xlabel('DSS', fontsize=ft)
+    ax[3, 2].set_xlabel('IS1', fontsize=ft)
+    ax[3, 3].set_xlabel('SSE', fontsize=ft)
+   
+    #ax[3, 2].legend(bbox_to_anchor=(1.2, -0.5), ncol=4, fontsize=14)
     #axes[1].set_yticks([])
     #axes[2].set_yticks([])
 
     #plt.savefig(figlab, bbox_inches="tight")
     #plt.close()
+    if is_hard == False:
+        plt.title('Easy Dataset', x=-1.25, y=4.75, fontsize=ft)
+    else:
+        plt.title('Hard Dataset', x=-1.25, y=4.75, fontsize=ft)
     plt.show()
 
     for m in methods:

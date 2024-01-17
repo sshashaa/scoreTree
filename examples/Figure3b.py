@@ -138,7 +138,8 @@ for m in methods:
         print(str(v) + "  ", end="") 
     print("\n")
     
-    
+
+plot_papercombinedfig(df_scores, is_hard=True)    
     
 #import sys
 #sys.path.append("/Users/ozgesurer/Desktop/GithubRepos/CART-with-scoring")

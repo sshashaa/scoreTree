@@ -119,4 +119,4 @@ for m in methods:
     
 from utils import plot_papercombinedfig
 
-plot_papercombinedfig(df_scores)
+plot_papercombinedfig(df_scores, is_hard=False)
