@@ -14,14 +14,14 @@ def column(matrix, i):
 max_depth = 4
 min_node_size = 10
 num_quantiles = 20
-total_reps = 30 
+total_reps = 100 
 alpha = .2
 tol = 0
 
 
 def OneRep(k, n):
     # random.seed(k + 10)
-    filename = 'less_noise_examples/synth7_rep_' + str(k) + '.csv'
+    filename = 'less_noise_examples_100/synth7_rep_' + str(k) + '.csv'
     rows = pd.read_csv(filename, header=None)
     rows = rows.values.tolist()[0:n]
     is_cat = []
@@ -35,7 +35,7 @@ def OneRep(k, n):
         else:
             is_cat += [0]
 
-    filename = 'less_noise_examples/synth7_test' + '.csv'
+    filename = 'less_noise_examples_100/synth7_test' + '.csv'
     rows_test = pd.read_csv(filename, header=None)
     rows_test = rows_test.values.tolist()
 
@@ -79,7 +79,7 @@ def OneRep(k, n):
                                                actual_in, 
                                                metrics=['sse', 'crps', 'dss', 'is1'])
             for metr in ['sse', 'crps', 'dss', 'is1']:
-                d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][1], 2), 'Test': np.round(dict_eval[metr][0], 2), 'Threshold': pr, 'n': n}
+                d = {'Method': m, 'Metric': metr, 'Train': np.round(dict_eval[metr][1], 2), 'Test': np.round(dict_eval[metr][0], 2), 'Threshold': pr, 'n': n, 'r': k}
                 dictable.append(d)
     dfres = pd.DataFrame(dictable)
     return dfres
@@ -89,6 +89,9 @@ nlist = [200, 400, 800, 1600]
 for n in nlist:
     # Run parallel for each replicate
     scores_reps = Parallel(n_jobs=min(total_reps, 20))(delayed(OneRep)(rep_no, n) for rep_no in range(total_reps))   
+    for sr in scores_reps:
+        filename = 'less_noise_examples_100/res_synth7_rep_' + str(n) + '_' + str(sr['r'][0]) + '.csv'
+        sr.to_csv(filename + '.csv', sep=',')
     score_list.append(scores_reps)
 
 liste = []    
@@ -96,7 +99,7 @@ for nid in range(0, len(nlist)):
     scores_reps = score_list[nid]
     for i in range(total_reps):
         ls = scores_reps[i].copy()
-        ls['Rep'] = i
+        ls['Rep'] = ls['r'][0]
         liste.append(ls)
 df_scores = pd.concat(liste)
 
@@ -138,8 +141,9 @@ for m in methods:
         print(str(v) + "  ", end="") 
     print("\n")
     
-
-plot_papercombinedfig(df_scores, is_hard=True)    
+from utils import plot_papercombinedfig
+plot_papercombinedfig(df_scores, repno=total_reps, is_hard=True)    
+plot_box(df_scores, repno=total_reps, is_hard=True)
     
 #import sys
 #sys.path.append("/Users/ozgesurer/Desktop/GithubRepos/CART-with-scoring")
