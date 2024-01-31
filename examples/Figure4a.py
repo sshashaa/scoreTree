@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from joblib import Parallel, delayed
 import random
-from utils import plot_paperfig
+from utils import tables
 
 
 def column(matrix, i):
@@ -14,14 +14,14 @@ def column(matrix, i):
 max_depth = 4
 min_node_size = 10
 num_quantiles = 20
-total_reps = 100
+total_reps = 30 
 alpha = .2
 tol = 0
 
 
 def OneRep(k, n):
     # random.seed(k + 10)
-    filename = 'less_noise_examples_100/synth6_rep_' + str(k) + '.csv'
+    filename = 'less_noise_examples/synth6_rep_' + str(k) + '.csv'
     rows = pd.read_csv(filename, header=None)
     rows = rows.values.tolist()[0:n]
     is_cat = []
@@ -35,7 +35,7 @@ def OneRep(k, n):
         else:
             is_cat += [0]
 
-    filename = 'less_noise_examples_100/synth6_test' + '.csv'
+    filename = 'less_noise_examples/synth6_test' + '.csv'
     rows_test = pd.read_csv(filename, header=None)
     rows_test = rows_test.values.tolist()
 
@@ -82,7 +82,7 @@ def OneRep(k, n):
                 d = {'Method': m, 'Metric': metr, 
                      'Train': np.round(dict_eval[metr][1], 2), 
                      'Test': np.round(dict_eval[metr][0], 2), 
-                     'Threshold': pr, 'n': n, 'r': k}
+                     'Threshold': pr, 'n': n}
                 dictable.append(d)
     dfres = pd.DataFrame(dictable)
     return dfres
@@ -92,9 +92,6 @@ nlist = [200, 400, 800, 1600]
 for n in nlist:
     # Run parallel for each replicate
     scores_reps = Parallel(n_jobs=min(total_reps, 20))(delayed(OneRep)(rep_no, n) for rep_no in range(total_reps))   
-    for sr in scores_reps:
-        filename = 'less_noise_examples_100/res_synth6_rep_' + str(n) + '_' + str(sr['r'][0]) + '.csv'
-        sr.to_csv(filename + '.csv', sep=',')
     score_list.append(scores_reps)
 
 liste = []    
@@ -102,13 +99,13 @@ for nid in range(0, len(nlist)):
     scores_reps = score_list[nid]
     for i in range(total_reps):
         ls = scores_reps[i].copy()
-        ls['Rep'] = ls['r'][0] #i
+        ls['Rep'] = i
         liste.append(ls)
 df_scores = pd.concat(liste)
 
-table1 = plot_paperfig(df_scores, "Figures/Figure3easy.png")
+table1 = tables(df_scores)
 
-# Generate Table 2
+# Generate Table 3
 table1 = pd.DataFrame(table1)
 methods = ['sse', 'crps', 'dss', 'is1']
 print("Table 1: The optimal pruning for each scoring rule and size (hard dataset)")
@@ -122,4 +119,4 @@ for m in methods:
     
 from utils import plot_papercombinedfig
 
-plot_papercombinedfig(df_scores, repno=total_reps, is_hard=False)
+plot_papercombinedfig(df_scores, repno=total_reps, figlab='Figures/Figure4a.png', is_hard=False)
