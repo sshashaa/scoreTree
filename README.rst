@@ -23,11 +23,11 @@ having conflicting packages on a user's machine. You may need to install the vir
 environment on your system (if a user's system does not have it), for example, 
 with 'apt install python3.9-venv'
 
-1) Extract the zipped file.
+1)Extract the zipped file.
 
-2) From the command line, go to the directory of the source code.
+2)From the command line, go to the directory of the source code.
 
-3) Use the following command to create a virtual environment::
+3)Use the following command to create a virtual environment::
 
   python3 -m venv venv/  
   source venv/bin/activate  
