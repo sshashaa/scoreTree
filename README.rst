@@ -40,13 +40,13 @@ Installation
 
 To install the package:
 
-1) Go to the directory of the source code (if a user has not done so yet).
+1)Go to the directory of the source code (if a user has not done so yet).
 
-2) Use the following command to install the required packages::
+2)Use the following command to install the required packages::
 
  pip install -r requirements.txt
 
-3) From the command line, use the following command to install the package::
+3)From the command line, use the following command to install the package::
 
  pip install -e .
 
@@ -58,9 +58,9 @@ Instructions for running the illustrative examples
 
 To replicate Figure~1:
 
-1) Go to the ``examples/`` directory.
+1)Go to the ``examples/`` directory.
 
-2) Execute the followings from the command line::
+2)Execute the followings from the command line::
 
  python3 Figure1.py
 
