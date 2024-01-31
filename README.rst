@@ -11,7 +11,7 @@ Trees for Probabilistic Prediction via Scoring Rules.'
 
 This code requires Python (version 3.6 or later) and pip. 
 
-Examples under ``examples/`` directory replicate figure 1 and figure 3.
+Examples under ``examples/`` directory replicate Figure 1 and Figure 4.
 
 Set up 
 ~~~~~~
@@ -23,11 +23,11 @@ having conflicting packages on a user's machine. You may need to install the vir
 environment on your system (if a user's system does not have it), for example, 
 with 'apt install python3.9-venv'
 
-1)Extract the zipped file.
+1) Extract the zipped file.
 
-2)From the command line, go to the directory of the source code.
+2) From the command line, go to the directory of the source code.
 
-3)Use the following command to create a virtual environment::
+3) Use the following command to create a virtual environment::
 
   python3 -m venv venv/  
   source venv/bin/activate  
@@ -40,13 +40,13 @@ Installation
 
 To install the package:
 
-1)Go to the directory of the source code (if a user has not done so yet).
+1) Go to the directory of the source code (if a user has not done so yet).
 
-2)Use the following command to install the required packages::
+2) Use the following command to install the required packages::
 
  pip install -r requirements.txt
 
-3)From the command line, use the following command to install the package::
+3) From the command line, use the following command to install the package::
 
  pip install -e .
 
@@ -58,9 +58,9 @@ Instructions for running the illustrative examples
 
 To replicate Figure~1:
 
-1)Go to the ``examples/`` directory.
+1) Go to the ``examples/`` directory.
 
-2)Execute the followings from the command line::
+2) Execute the followings from the command line::
 
  python3 Figure1.py
 
@@ -69,23 +69,23 @@ Running this script should not take more than 60 sec. See the figures (png files
 Instructions for running the prominent empirical results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Instructions are provided to replicate Figure~3.
+Instructions are provided to replicate Figure~4.
 
 Execute the following from the command line::
 
-  python3 Figure3a.py
+  python3 Figure4a.py
  
 Running this script takes about 2.5hrs on a personal Mac laptop. 
-Once completed, ``Figure3_easy.png`` is saved under ``examples/`` directory.
-Moreover, Table~2 (easy dataset) is printed to the screen.
+Once completed, ``Figure4a.png`` is saved under ``examples/`` directory.
+Moreover, Table~3 (easy dataset) is printed to the screen.
 
 Execute the following from the command line::
 
-  python3 Figure3b.py
+  python3 Figure4b.py
  
 Running this script takes about 2.5hrs on a personal Mac laptop. 
-Once completed, ``Figure3_hard.png`` is saved under ``examples/`` directory.
-Moreover, Table~2 (hard dataset) is printed to the screen. Finally, 
+Once completed, ``Figure4b.png`` is saved under ``examples/`` directory.
+Moreover, Table~3 (hard dataset) is printed to the screen. Finally, Figure 2
 ``Figure2.png`` is saved under ``examples/`` directory. 
   
 Final comments
