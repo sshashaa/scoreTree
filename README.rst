@@ -18,7 +18,7 @@ Installation
 
 1)Extract the zipped file.
 
-2)From the command line, go to the directory of the source code.
+2)From the command line, go to the directory of the source code::
 
  cd scoreTree
 
@@ -28,7 +28,7 @@ Installation
 
 4)From the command line, use the following command to install the package::
 
- pip install -e .
+ python setup.py install
 
 Once installed, a user should see ``build/`` directory created.
  

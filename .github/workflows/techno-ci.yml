@@ -27,4 +27,4 @@ jobs:
         python setup.py install
     - name: Test with Figure 1
       run: |
-        python ./examples/Figure1.py
+        python ./examples/Figure1test.py
