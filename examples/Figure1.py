@@ -47,8 +47,7 @@ for seed in [19]:
                 y = np.random.normal(loc=1, scale=2, size=1)
             else:
                 y = np.random.exponential(scale=1.0, size=1)
-            
-            data.append([x_i, float(y)])
+            data.append([x_i, float(y[0])])
         return data
     
     n = 1000
