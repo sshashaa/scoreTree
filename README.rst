@@ -75,23 +75,23 @@ Running this script should not take more than 60 sec. See the figures (png files
 Instructions for running the prominent empirical results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Instructions are provided to replicate Figure~4.
+Instructions are provided to replicate Figures~4--5.
 
 Execute the following from the command line::
 
-  python3 Figure4a.py
+  python3 Figure4easy.py
  
 Running this script takes about 2.5hrs on a personal Mac laptop. 
-Once completed, ``Figure4a.png`` is saved under ``examples/`` directory.
-Moreover, Table~3 (easy dataset) is printed to the screen.
+Once completed, ``Figure4easy.png`` and ``Figure5easy.png`` are saved under ``examples/`` directory.
+Moreover, Table~2 (easy dataset) is printed to the screen.
 
 Execute the following from the command line::
 
-  python3 Figure4b.py
+  python3 Figure4hard.py
  
 Running this script takes about 2.5hrs on a personal Mac laptop. 
-Once completed, ``Figure4b.png`` is saved under ``examples/`` directory.
-Moreover, Table~3 (hard dataset) is printed to the screen. Finally, Figure 2
+Once completed, ``Figure4hard.png`` and ``Figure5hard.png`` are saved under ``examples/`` directory.
+Moreover, Table~2 (hard dataset) is printed to the screen. Finally, Figure 2
 ``Figure2.png`` is saved under ``examples/`` directory. 
   
 Final comments

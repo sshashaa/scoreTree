@@ -108,7 +108,7 @@ table1 = tables(df_scores)
 # Generate Table 3
 table1 = pd.DataFrame(table1)
 methods = ['sse', 'crps', 'dss', 'is1']
-print("Table 1: The optimal pruning for each scoring rule and size (hard dataset)")
+print("Table 2: The optimal pruning for each scoring rule and size (easy dataset)")
 print("     " + str(nlist))
 for m in methods:
     vals = np.array(table1[(table1['Method'] == m)]['Threshold'])
@@ -117,6 +117,6 @@ for m in methods:
         print(str(v) + "  ", end="") 
     print("\n")
     
-from utils import plot_papercombinedfig
-
-plot_papercombinedfig(df_scores, repno=total_reps, figlab='Figures/Figure4a.png', is_hard=False)
+from utils import plot_Figure4, plot_Figure5
+plot_Figure4(df_scores, repno=total_reps, figlab='Figures/Figure4easy.png', is_hard=False)
+plot_Figure5(df_scores, repno=total_reps, figlab='Figures/Figure5easy.png', is_hard=False)
