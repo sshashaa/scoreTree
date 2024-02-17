@@ -64,7 +64,9 @@ Instructions for running the illustrative examples
 
 To replicate Figure~1:
 
-1)Go to the ``examples/`` directory.
+1)Go to the ``examples/`` directory::
+
+ cd examples
 
 2)Execute the followings from the command line::
 
