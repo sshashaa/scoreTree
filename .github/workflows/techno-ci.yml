@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install -e .
+        python setup.py install
     - name: Test with Figure 1
       run: |
         python ./examples/Figure1.py
