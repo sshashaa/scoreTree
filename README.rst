@@ -13,8 +13,34 @@ This code requires Python (version 3.9 or later) and pip.
 
 Examples under ``examples/`` directory replicate Figure 1 and Figure 4.
 
+Set up 
+~~~~~~
+
+We recommend creating a Python virtual environment within the working directory of scoreTree. 
+If a virtual environment is created, scoreTree's required packages are installed and 
+isolated from those installed a priori. Creating a virtual environment will also prevent
+having conflicting packages on a user's machine. You may need to install the virtual 
+environment on your system (if a user's system does not have it), for example, 
+with 'apt install python3.9-venv'
+
+1)Extract the zipped file.
+
+2)From the command line, go to the directory of the source code::
+
+ cd scoreTree
+
+3)Use the following command to create a virtual environment::
+
+  python3 -m venv venv/  
+  source venv/bin/activate  
+ 
+We note that creating a virtual environment is not a required step. However, we tested this
+procedure to prevent any conflict, and the code runs smoothly.
+
 Installation
 ~~~~~~~~~~~~
+
+Skip steps 1 and 2 if you have created a virtual environment.
 
 1)Extract the zipped file.
 
