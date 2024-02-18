@@ -118,5 +118,5 @@ for m in methods:
     print("\n")
     
 from utils import plot_Figure4, plot_Figure5
-plot_Figure4(df_scores, repno=total_reps, figlab='Figures/Figure4easy.png', is_hard=False)
-plot_Figure5(df_scores, repno=total_reps, figlab='Figures/Figure5easy.png', is_hard=False)
+plot_Figure4(df_scores, repno=total_reps, figlab='Figure4easy.png', is_hard=False)
+plot_Figure5(df_scores, repno=total_reps, figlab='Figure5easy.png', is_hard=False)

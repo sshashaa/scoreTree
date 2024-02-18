@@ -153,5 +153,5 @@ for seed in [19]:
         if sid == 0:
             axs[sid,2].set_title(r'$x > s^{\rm SSE}$', fontsize=ft)
 
-    plt.savefig("Figures/Figure1.png", bbox_inches="tight")
+    plt.savefig("Figure1.png", bbox_inches="tight")
     plt.close()

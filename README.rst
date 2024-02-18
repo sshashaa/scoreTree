@@ -25,7 +25,7 @@ with 'apt install python3.9-venv'
 
 1)Extract the zipped file.
 
-2)From the command line, go to the directory of the source code::
+2)From the command line, go to the directory of the code where the setup.py is located::
 
  cd scoreTree
 
@@ -44,7 +44,7 @@ Skip steps 1 and 2 if you have created a virtual environment.
 
 1)Extract the zipped file.
 
-2)From the command line, go to the directory of the source code::
+2)From the command line, go to the directory of the code where the setup.py is located::
 
  cd scoreTree
 
@@ -72,7 +72,7 @@ To replicate Figure~1:
 
  python3 Figure1.py
 
-Running this script should not take more than 60 sec. See the figures (png files) saved under ``examples/`` directory.
+Running this script should not take more than 60 sec. See the figure (``Figure1.png``) saved under ``examples/`` directory.
 
 Instructions for running the prominent empirical results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -55,7 +55,7 @@ def plot_Figure4(df_scores, repno, figlab, is_hard=False):
     fig, ax = plt.subplots(3, 1, figsize=(4, 12))
 
     if is_hard == False:
-        fig.text(-0.2, 0.5, 'Eval', va='center', rotation='vertical', fontsize=ft)
+        fig.text(-0.25, 0.5, 'Eval scoring rules', va='center', rotation='vertical', fontsize=ft)
 
     for mid, evalu in enumerate(methods):
         xmax = 0
@@ -146,10 +146,10 @@ def plot_Figure5(df_scores, repno, figlab, is_hard=False):
     table1compare = []
     fig, ax = plt.subplots(4, 3, figsize=(9, 12))
 
-    fig.suptitle('Build', y=0.07, fontsize=ft)
+    fig.suptitle('Build scoring rules', y=0.06, fontsize=ft)
 
     if is_hard == False:
-        fig.text(0.02, 0.5, 'Eval', va='center', rotation='vertical', fontsize=ft)
+        fig.text(-0.05, 0.5, 'Eval scoring rules', va='center', rotation='vertical', fontsize=ft)
     for bid, built in enumerate(bmethods):
         #print('built:', built)
         for mid, evalu in enumerate(methods):
