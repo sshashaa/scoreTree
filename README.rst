@@ -83,7 +83,7 @@ Execute the following from the command line::
 
   python3 Figure4easy.py
  
-Running this script takes about 2.5hrs on a personal Mac laptop. 
+Running this script takes about 30min. on a personal Mac laptop. 
 Once completed, ``Figure4easy.png`` and ``Figure5easy.png`` are saved under ``examples/`` directory.
 Moreover, Table~2 (easy dataset) is printed to the screen.
 
@@ -91,7 +91,7 @@ Execute the following from the command line::
 
   python3 Figure4hard.py
  
-Running this script takes about 2.5hrs on a personal Mac laptop. 
+Running this script takes about 30min. on a personal Mac laptop. 
 Once completed, ``Figure4hard.png`` and ``Figure5hard.png`` are saved under ``examples/`` directory.
 Moreover, Table~2 (hard dataset) is printed to the screen. Finally, Figure 2
 ``Figure2.png`` is saved under ``examples/`` directory. 
