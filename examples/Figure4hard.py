@@ -126,7 +126,7 @@ fig2.set_xlabel('data size', fontsize=ft)
 fig2.tick_params(axis='both', which='major', labelsize=ft)
 fig2.legend(title='Pruning threshold', fontsize=ft)
 plt.setp(ax.get_legend().get_title(), fontsize=ft) 
-plt.savefig("Figures/Figure2.png", bbox_inches="tight")
+plt.savefig("Figure2.png", bbox_inches="tight")
 plt.close()
 
 # Generate Table 2
